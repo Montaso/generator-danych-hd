@@ -8,11 +8,11 @@ class NameGenerator:
     def __init__(self):
         self.male_name_api = "https://api.dane.gov.pl/resources/54109,lista-imion-meskich-w-rejestrze-pesel-stan-na-19012023-imie-pierwsze/csv"
         self.female_name_api = "https://api.dane.gov.pl/resources/54110,lista-imion-zenskich-w-rejestrze-pesel-stan-na-19012024-imie-pierwsze/csv"
-        self.name_number_threshold = 1000
+        self.name_number_threshold = 10000
 
         self.male_surname_api = "https://api.dane.gov.pl/resources/54097,nazwiska-meskie-stan-na-2024-01-19/csv"
         self.female_surname_api = "https://api.dane.gov.pl/resources/54098,nazwiska-zenskie-stan-na-2024-01-19/csv"
-        self.surname_number_threshold = 1000
+        self.surname_number_threshold = 10000
     
 
     def get_names(self):
