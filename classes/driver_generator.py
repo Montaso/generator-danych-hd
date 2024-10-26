@@ -1,8 +1,14 @@
-from name_generator import NameGenerator
-from date_generator import DateGenerator
+try:
+    from .name_generator import NameGenerator
+    from .date_generator import DateGenerator
+except ImportError:
+    from name_generator import NameGenerator
+    from date_generator import DateGenerator
+
 import random
 from datetime import datetime
 import csv
+
 
 class DriverGenerator:
     def __init__(self, n=100):

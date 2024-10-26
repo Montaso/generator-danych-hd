@@ -1,6 +1,10 @@
 import random
 import csv
-from date_generator import DateGenerator
+
+try:
+    from .date_generator import DateGenerator
+except ImportError:
+    from date_generator import DateGenerator
 
 
 class VehiclesGenerator:
