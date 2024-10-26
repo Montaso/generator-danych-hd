@@ -23,7 +23,7 @@ class DateGenerator:
         for _ in range(n)
         ]
 
-        return random_dates
+        return random_dates[0] if n==1 else random_dates
 
 
 if __name__ == "__main__":
