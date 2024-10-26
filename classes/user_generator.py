@@ -1,5 +1,5 @@
-from name_generator import NameGenerator
-from date_generator import DateGenerator
+from .name_generator import NameGenerator
+from .date_generator import DateGenerator
 import csv
 from datetime import datetime
 import time

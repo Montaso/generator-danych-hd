@@ -1,4 +1,7 @@
-from classes.date_generator import DateGenerator
+try:
+    from .date_generator import DateGenerator
+except ImportError:
+    from date_generator import DateGenerator
 import csv
 import random
 
