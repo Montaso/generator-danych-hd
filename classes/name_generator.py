@@ -17,11 +17,11 @@ class NameGenerator:
 
     def get_names(self):
 
-        response_male = requests.get(self.male_name_api, verify=False)
+        response_male = requests.get(self.male_name_api)
         csv_data_male = StringIO(response_male.text)
         data_male = pd.read_csv(csv_data_male)
 
-        response_female = requests.get(self.female_name_api, verify=False)
+        response_female = requests.get(self.female_name_api)
         csv_data_female = StringIO(response_female.text)
         data_female = pd.read_csv(csv_data_female)
 
@@ -37,11 +37,11 @@ class NameGenerator:
     
 
     def get_surnames(self):
-        response_male = requests.get(self.male_surname_api, verify=False)
+        response_male = requests.get(self.male_surname_api)
         csv_data_male = StringIO(response_male.text)
         data_male = pd.read_csv(csv_data_male)
 
-        response_female = requests.get(self.female_surname_api, verify=False)
+        response_female = requests.get(self.female_surname_api)
         csv_data_female = StringIO(response_female.text)
         data_female = pd.read_csv(csv_data_female)
 
@@ -77,11 +77,17 @@ class NameGenerator:
         random_females = np.array([random_names_female, random_surnames_female])
 
         randoms = np.concatenate((random_males, random_females), axis=1)
-        randoms = randoms.astype(str)
-        combined = np.char.add(np.char.add(randoms[0, :], ' '), randoms[1, :])
 
-        return None
+        tuples = list(zip(randoms[0], randoms[1]))
+        np.random.shuffle(tuples)
+
+        # randoms = randoms.astype(str)
+        # combined = np.char.add(np.char.add(randoms[0, :], ' '), randoms[1, :])
+
+        return tuples
 
 
 
-NameGenerator().generate(100)
+if __name__ == "__main__":
+    a = NameGenerator().generate(quantity=50)
+    print(a)
