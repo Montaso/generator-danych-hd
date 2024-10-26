@@ -35,7 +35,7 @@ class UserGenerator:
             registration_dates.append(self.date_generator.generate(n=1, start_date=date if date1 > date2 else self.registration_date_start, end_date=self.registration_date_end))
 
             user = {
-                "id": ids[i],
+                "id": ids[i] + 1,
                 "name": names[i][0],
                 "surname": names[i][1],
                 "birthdate": birthdates[i],
@@ -69,7 +69,7 @@ class UserGenerator:
 
 if __name__ == "__main__":
     start_time = time.time()
-    UserGenerator(n=1000000).generate_and_save()
+    UserGenerator(n=100).generate_and_save()
     end_time = time.time()
     elapsed_time = end_time - start_time
 

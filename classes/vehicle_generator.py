@@ -51,7 +51,7 @@ class VehiclesGenerator:
 
     def write_to_csv(self, vehicles, filename='../generated_data/vehicles_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file)
+            writer = csv.writer(file, delimiter=';')
             writer.writerow(['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'battery_capacity',
                              'in_use'])
             writer.writerows(vehicles)
