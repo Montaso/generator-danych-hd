@@ -27,7 +27,7 @@ class StationsGenerator:
 
     def _write_to_csv(self, stations, filename='../generated_data/stations_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file)
+            writer = csv.writer(file, delimiter=';')
             writer.writerow(['Id', 'Longitude', 'Latitude', 'Capacity', 'In_Use'])
             writer.writerows(stations)
 

@@ -15,7 +15,7 @@ class VansGenerator:
         while True:
             prefix = random.choice(self.LICENSE_PLATE_PREFIXES)
             first_part = ''.join(random.choices(string.digits, k=2))
-            second_part = ''.join(random.choices(string.digits + string.ascii_uppercase, k=3))  # Three characters mix
+            second_part = ''.join(random.choices(string.digits + string.ascii_uppercase, k=3))
             plate_number = f"{prefix}{first_part}{second_part}"
             if plate_number not in self.generated_plates:
                 self.generated_plates.add(plate_number)
@@ -36,7 +36,7 @@ class VansGenerator:
 
     def write_to_csv(self, vans, filename='../generated_data/vans_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file)
+            writer = csv.writer(file, delimiter=';')
             writer.writerow(['License_Plate', 'Capacity', 'In_Use'])
             writer.writerows(vans)
 
