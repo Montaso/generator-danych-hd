@@ -1,5 +1,9 @@
-from .name_generator import NameGenerator
-from .date_generator import DateGenerator
+try:
+    from .name_generator import NameGenerator
+    from .date_generator import DateGenerator
+except ImportError:
+    from date_generator import DateGenerator
+    from name_generator import NameGenerator
 import csv
 from datetime import datetime
 import time
@@ -65,6 +69,7 @@ class UserGenerator:
     def generate_and_save(self, filename='../generated_data/users.csv'):
         users = self.generate()
         self._write_to_csv(users, filename)
+        print("generated users data")
 
 
 if __name__ == "__main__":
