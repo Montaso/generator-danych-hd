@@ -12,7 +12,7 @@ class NameGenerator:
 
         self.male_surname_api = "https://api.dane.gov.pl/resources/54097,nazwiska-meskie-stan-na-2024-01-19/csv"
         self.female_surname_api = "https://api.dane.gov.pl/resources/54098,nazwiska-zenskie-stan-na-2024-01-19/csv"
-        self.surname_number_threshold = 10000
+        self.surname_number_threshold = 500
     
 
     def get_names(self):
@@ -46,8 +46,8 @@ class NameGenerator:
         data_female = pd.read_csv(csv_data_female)
 
         # obciecie malo popularnych nazwisk
-        data_female = data_female[data_female.iloc[:, 1] > self.name_number_threshold]
-        data_male = data_male[data_male.iloc[:, 1] > self.name_number_threshold]
+        data_female = data_female[data_female.iloc[:, 1] > self.surname_number_threshold]
+        data_male = data_male[data_male.iloc[:, 1] > self.surname_number_threshold]
         
         # usuniecie reszty kolumn
         data_male = data_male["Nazwisko aktualne"]
