@@ -1,6 +1,6 @@
-CREATE TABLE U¿ytkownicy (
-    ID_u¿ytkownika INT PRIMARY KEY,
-    Imiê VARCHAR(50) NOT NULL CHECK(LEN(Imiê) <= 50),
+CREATE TABLE Uzytkownicy (
+    ID_uzytkownika INT PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL CHECK(LEN(Imie) <= 50),
     Nazwisko VARCHAR(50) NOT NULL CHECK(LEN(Nazwisko) <= 50),
     Data_Urodzenia DATE NOT NULL CHECK(LEN(Data_Urodzenia) = 10),
     Data_Rejestracji DATE NOT NULL CHECK(LEN(Data_Rejestracji) = 10)
@@ -24,8 +24,8 @@ CREATE TABLE Pojazdy (
     Czy_nadal_uzywany BIT NOT NULL
 );
 
-CREATE TABLE Wypo¿yczenia (
-    ID_wypo¿yczenia INT PRIMARY KEY,
+CREATE TABLE Wypozyczenia (
+    ID_wypozyczenia INT PRIMARY KEY,
     FK_ID_pojazdu INT NOT NULL,
     FK_ID_uzytkownika INT NOT NULL,
     Koszt DECIMAL(10, 2) NOT NULL CHECK(Koszt > 0),
@@ -37,7 +37,38 @@ CREATE TABLE Wypo¿yczenia (
     Data_startu DATE NOT NULL CHECK(LEN(Data_startu) = 10),
 
     FOREIGN KEY (FK_ID_pojazdu) REFERENCES Pojazdy(ID_pojazdu),
-    FOREIGN KEY (FK_ID_uzytkownika) REFERENCES u¿ytkownicy(ID_u¿ytkownika),
+    FOREIGN KEY (FK_ID_uzytkownika) REFERENCES uzytkownicy(ID_uzytkownika),
     FOREIGN KEY (FK_Stacja_startowa) REFERENCES Stacje(ID_stacji),
     FOREIGN KEY (FK_Stacja_koncowa) REFERENCES Stacje(ID_stacji)
+);
+
+CREATE TABLE Vany (
+    Numer_rejestracji VARCHAR(7) PRIMARY KEY,
+    Pojemnosc INT CHECK (Pojemnosc >= 5000000 AND Pojemnosc <= 20000000) NOT NULL,  -- Van capacity in cm^3
+    Czy_nadal_uzywany BIT NOT NULL
+);
+
+CREATE TABLE Kierowcy (
+    PESEL VARCHAR(11) PRIMARY KEY CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
+    Imie VARCHAR(20) NOT NULL,
+    Nazwisko VARCHAR(20) NOT NULL,
+    Data_zatrudnienia DATE CHECK (Data_zatrudnienia <= GETDATE()) NOT NULL,
+    Czy_nadal_pracuje BIT NOT NULL
+);
+
+CREATE TABLE Trasy_Vanow (
+    ID_trasy INT PRIMARY KEY,
+    FK_PESEL_Kierowcy VARCHAR(11) NOT NULL,
+    FK_Numer_rejestracji_vana VARCHAR(7) NOT NULL,
+    Data_trasy DATE CHECK (Data_trasy <= GETDATE()),
+    FOREIGN KEY (FK_PESEL_Kierowcy) REFERENCES Kierowcy(PESEL),
+    FOREIGN KEY (FK_Numer_rejestracji_vana) REFERENCES Vany(Numer_rejestracji)
+);
+
+CREATE TABLE Wymiany_Akumulatorow (
+    ID_wymiany INT PRIMARY KEY,
+    FK_ID_pojazdu INT NOT NULL,
+    FK_ID_trasy INT NOT NULL,
+    FOREIGN KEY (FK_ID_pojazdu) REFERENCES Pojazdy(ID_pojazdu),
+    FOREIGN KEY (FK_ID_trasy) REFERENCES Trasy_Vanow(ID_trasy)
 );
