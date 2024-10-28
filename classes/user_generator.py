@@ -25,7 +25,7 @@ class UserGenerator:
         self.registration_date_end = parameters.USER_REGISTRATION_DATE_END
 
         self.csv_delimeter = parameters.CSV_DELIMETER
-
+        self.column_names = parameters.USER_COLUMN_NAMES
 
     def generate(self):
         users = []
@@ -56,7 +56,7 @@ class UserGenerator:
     def _write_to_csv(self, users, filename='../generated_data/users.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=self.csv_delimeter)
-            writer.writerow(['Id', 'Imię', 'Nazwisko', 'Data Urodzenia', 'Data Rejestracji'])
+            writer.writerow(self.column_names)
 
             for user in users:
                 writer.writerow([

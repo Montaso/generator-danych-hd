@@ -30,6 +30,7 @@ class DriverGenerator:
         self.csv_delimeter = parameters.CSV_DELIMETER
 
         self.still_working_ratio = parameters.DRIVER_STILL_WORKING_RATIO
+        self.column_names = parameters.DRIVER_COLUMN_NAMES
 
 
     def generate_pesel(self):
@@ -81,7 +82,7 @@ class DriverGenerator:
     def _write_to_csv(self, drivers, filename='../generated_data/users.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=self.csv_delimeter)
-            writer.writerow(['PESEL', 'Imię', 'Nazwisko', 'Data Zatrudnienia', 'Czy nadal pracuje'])
+            writer.writerow(self.column_names)
 
             for driver in drivers:
                 writer.writerow([

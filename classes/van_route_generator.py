@@ -23,7 +23,9 @@ class VanRoutesGenerator:
 
         self.route_date_start = parameters.VAN_ROUTE_DATE_START
         self.route_date_end = parameters.VAN_ROUTE_DATE_END
+        self.column_names = parameters.VAN_ROUTE_COLUMN_NAMES
 
+        
     def load_csv_ids(self, filename, id_column):
         ids = []
         try:
@@ -61,8 +63,8 @@ class VanRoutesGenerator:
 
     def write_to_csv(self, routes, filename='../generated_data/van_routes_data.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file, delimiter=';')
-            writer.writerow(['route_id', 'driver_fk', 'van_fk', 'date_of_route'])
+            writer = csv.writer(file, delimiter=parameters.CSV_DELIMETER)
+            writer.writerow(self.column_names)
             writer.writerows(routes)
 
     def generate_and_save(self, filename='../generated_data/van_routes_data.csv'):

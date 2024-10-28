@@ -13,7 +13,9 @@ class StationsGenerator:
         self.latitude_range = parameters.STATION_LATITUDE_RANGE
         self.longitude_range = parameters.STATION_LONGITUDE_RANGE
         self.capacity_range = parameters.STATION_CAPACITY_RANGE
+        self.column_names = parameters.STATION_COLUMN_NAMES
 
+        
     def _generate_station_data(self):
         stations = []
 
@@ -30,8 +32,8 @@ class StationsGenerator:
 
     def _write_to_csv(self, stations, filename='../generated_data/stations_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file, delimiter=';')
-            writer.writerow(['Id', 'Longitude', 'Latitude', 'Capacity', 'In_Use'])
+            writer = csv.writer(file, delimiter=parameters.CSV_DELIMETER)
+            writer.writerow(self.column_names)
             writer.writerows(stations)
 
     def generate_and_save(self, filename='../generated_data/stations_data.csv'):

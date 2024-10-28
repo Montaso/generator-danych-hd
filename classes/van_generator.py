@@ -14,7 +14,7 @@ class VansGenerator:
         self.generated_plates = set()
         self.license_plate_prefixes = parameters.VANS_LICENSE_PLATE_PREFIXES
         self.capacity_range_cm3 = parameters.VANS_CAPACITY_RANGE_CM3
-
+        self.column_names = parameters.VANS_COLUMN_NAMES
 
     def generate_license_plate(self):
         while True:
@@ -41,8 +41,8 @@ class VansGenerator:
 
     def write_to_csv(self, vans, filename='../generated_data/vans_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file, delimiter=';')
-            writer.writerow(['License_Plate', 'Capacity', 'In_Use'])
+            writer = csv.writer(file, delimiter=parameters.CSV_DELIMETER)
+            writer.writerow(self.column_names)
             writer.writerows(vans)
 
     def generate_and_save(self, filename='../generated_data/vans_data.csv'):

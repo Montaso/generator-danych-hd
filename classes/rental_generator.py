@@ -30,12 +30,14 @@ class RentalGenerator:
 
         self.date_of_start_min = parameters.RENTAL_DATE_OF_START_MIN
         self.date_of_start_max = parameters.RENTAL_DATE_OF_START_MAX
+        self.column_names = parameters.RENTAL_COLUMN_NAMES
 
+        
     def load_csv_ids(self, filename, id_column):
         ids = []
         try:
             with open(filename, mode='r', newline='', encoding='utf-8') as file:
-                reader = csv.DictReader(file, delimiter=';')
+                reader = csv.DictReader(file, delimiter=parameters.CSV_DELIMETER)
                 ids = [int(row[id_column]) for row in reader]
         except FileNotFoundError:
             print(f"Error: {filename} not found.")
@@ -98,9 +100,7 @@ class RentalGenerator:
     def write_to_csv(self, rentals, filename='../generated_data/rentals_data.csv'):
         with open(filename, mode='w', newline='') as file:
             writer = csv.writer(file, delimiter=';')
-            writer.writerow(
-                ['rental_id', 'start_station_fk', 'end_station_fk', 'cost', 'rent_time', 'distance', 'vehicle_fk',
-                 'user_fk', 'correct_putting', 'date_of_start', 'time_of_start'])
+            writer.writerow(self.column_names)
             writer.writerows(rentals)
 
     def generate_and_save(self, filename='../generated_data/rentals_data.csv'):

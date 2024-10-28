@@ -23,6 +23,8 @@ class VehiclesGenerator:
         self.battery_capacity_min = parameters.VEHICLE_BATTERY_CAPACITY_MIN
         self.battery_capacity_max = parameters.VEHICLE_BATTERY_CAPACITY_MAX
         self.in_use_weights = parameters.VEHICLE_IN_USE_WEIGHTS
+        self.column_names = parameters.VEHICLE_COLUMN_NAMES
+
 
     def generate_id(self, index):
         return index + 1
@@ -66,9 +68,8 @@ class VehiclesGenerator:
 
     def write_to_csv(self, vehicles, filename='../generated_data/vehicles_data.csv'):
         with open(filename, mode='w', newline='') as file:
-            writer = csv.writer(file, delimiter=';')
-            writer.writerow(['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'battery_capacity',
-                             'in_use'])
+            writer = csv.writer(file, delimiter=parameters.CSV_DELIMETER)
+            writer.writerow(self.column_names)
             writer.writerows(vehicles)
 
     def generate_and_save(self, filename='../generated_data/vehicles_data.csv'):

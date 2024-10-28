@@ -1,10 +1,15 @@
+try:
+    from .parameters import parameters
+except ImportError:
+    from parameters import parameters
+
 import random
 from datetime import datetime, timedelta
 
 
 class DateGenerator:
     def __init__(self):
-        self.date_format = str("%d-%m-%Y")
+        self.date_format = parameters.DATE_FORMAT
 
 
     def set_date_format(self, new_format: str):
