@@ -1,9 +1,11 @@
 try:
     from .name_generator import NameGenerator
     from .date_generator import DateGenerator
+    from .parameters import parameters
 except ImportError:
     from date_generator import DateGenerator
     from name_generator import NameGenerator
+    from parameters import parameters
 import csv
 from datetime import datetime
 import time
@@ -16,13 +18,13 @@ class UserGenerator:
         self.name_generator = NameGenerator()
         self.date_generator = DateGenerator()
         
-        self.birthdate_start = "01-01-1950"
-        self.birthdate_end = "01-01-2011"
+        self.birthdate_start = parameters.USER_BIRTHDATE_START
+        self.birthdate_end = parameters.USER_BIRTHDATE_END
 
-        self.registration_date_start = "01-01-2010"
-        self.registration_date_end = "01-01-2024"
+        self.registration_date_start = parameters.USER_REGISTRATION_DATE_START
+        self.registration_date_end = parameters.USER_REGISTRATION_DATE_END
 
-        self.csv_delimeter = ';'
+        self.csv_delimeter = parameters.CSV_DELIMETER
 
 
     def generate(self):
