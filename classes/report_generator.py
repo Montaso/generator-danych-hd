@@ -4,7 +4,7 @@ from datetime import timedelta
 
 
 class ReportGenerator:
-    def __init__(self, n, van_route_filename='../generated_data/van_routes_data.csv'):
+    def __init__(self, n, van_route_filename='../generated_data/van_routes_data2.csv'):
         self.n = n
         self.routes_ids = self.load_csv_ids(van_route_filename, 'route_id')
         self.routes_dates = self.load_csv_ids(van_route_filename, 'date_of_route')
@@ -85,4 +85,4 @@ class ReportGenerator:
 
 
 if __name__ == "__main__":
-    ReportGenerator(n=100).generate_and_save(filename='../generated_data/reports.csv')
+    ReportGenerator(n=100).generate_and_save(filename='../generated_data/reports2.csv')
