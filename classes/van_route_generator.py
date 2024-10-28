@@ -1,3 +1,8 @@
+try:
+    from .parameters import parameters
+except ImportError:
+    from parameters import parameters
+
 import csv
 import random
 
@@ -9,13 +14,20 @@ except ImportError:
 
 class VanRoutesGenerator:
     def __init__(self, drivers_filename='../generated_data/drivers.csv',
-                 vans_filename='../generated_data/vans_data.csv', num_routes=100):
+                 vans_filename='../generated_data/vans_data.csv',
+                 num_routes=100, start_index=1):
         self.num_routes = num_routes
         self.date_generator = DateGenerator()
+        self.start_index = start_index
 
         self.drivers = self.load_csv_ids(drivers_filename, 'PESEL')
         self.vans = self.load_csv_ids(vans_filename, 'License_Plate')
 
+        self.route_date_start = parameters.VAN_ROUTE_DATE_START
+        self.route_date_end = parameters.VAN_ROUTE_DATE_END
+        self.column_names = parameters.VAN_ROUTE_COLUMN_NAMES
+
+        
     def load_csv_ids(self, filename, id_column):
         ids = []
         try:
@@ -27,7 +39,7 @@ class VanRoutesGenerator:
         return ids
 
     def generate_route_id(self, index):
-        return index + 1
+        return index + self.start_index
 
     def generate_driver_fk(self):
         return random.choice(self.drivers)
@@ -36,7 +48,7 @@ class VanRoutesGenerator:
         return random.choice(self.vans)
 
     def generate_date_of_route(self):
-        return self.date_generator.generate(1, "01-01-2022", "31-12-2023")
+        return self.date_generator.generate(1, self.route_date_start, self.route_date_end)
 
     def generate_van_routes_data(self):
         routes = []
@@ -53,8 +65,8 @@ class VanRoutesGenerator:
 
     def write_to_csv(self, routes, filename='../generated_data/van_routes_data.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file, delimiter=';')
-            writer.writerow(['route_id', 'driver_fk', 'van_fk', 'date_of_route'])
+            writer = csv.writer(file, delimiter=parameters.CSV_DELIMETER)
+            writer.writerow(self.column_names)
             writer.writerows(routes)
 
     def generate_and_save(self, filename='../generated_data/van_routes_data.csv'):

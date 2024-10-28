@@ -1,34 +1,37 @@
 try:
     from .name_generator import NameGenerator
     from .date_generator import DateGenerator
+    from .parameters import parameters
 except ImportError:
     from date_generator import DateGenerator
     from name_generator import NameGenerator
+    from parameters import parameters
 import csv
 from datetime import datetime
 import time
 
 
 class UserGenerator:
-    def __init__(self, n=100):
+    def __init__(self, n=100, start_index=1):
         self.n = n
 
         self.name_generator = NameGenerator()
         self.date_generator = DateGenerator()
+        self.start_index = start_index
         
-        self.birthdate_start = "01-01-1950"
-        self.birthdate_end = "01-01-2011"
+        self.birthdate_start = parameters.USER_BIRTHDATE_START
+        self.birthdate_end = parameters.USER_BIRTHDATE_END
 
-        self.registration_date_start = "01-01-2010"
-        self.registration_date_end = "01-01-2024"
+        self.registration_date_start = parameters.USER_REGISTRATION_DATE_START
+        self.registration_date_end = parameters.USER_REGISTRATION_DATE_END
 
-        self.csv_delimeter = ';'
-
+        self.csv_delimeter = parameters.CSV_DELIMETER
+        self.column_names = parameters.USER_COLUMN_NAMES
 
     def generate(self):
         users = []
 
-        ids = [i for i in range(self.n)]
+        ids = [i + self.start_index for i in range(self.n)]
         names = self.name_generator.generate(quantity=self.n)
         birthdates = self.date_generator.generate(n=self.n, start_date=self.birthdate_start, end_date=self.birthdate_end)
         
@@ -39,7 +42,7 @@ class UserGenerator:
             registration_dates.append(self.date_generator.generate(n=1, start_date=date if date1 > date2 else self.registration_date_start, end_date=self.registration_date_end))
 
             user = {
-                "id": ids[i] + 1,
+                "id": ids[i],
                 "name": names[i][0],
                 "surname": names[i][1],
                 "birthdate": birthdates[i],
@@ -54,7 +57,7 @@ class UserGenerator:
     def _write_to_csv(self, users, filename='../generated_data/users.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=self.csv_delimeter)
-            writer.writerow(['Id', 'Imię', 'Nazwisko', 'Data Urodzenia', 'Data Rejestracji'])
+            writer.writerow(self.column_names)
 
             for user in users:
                 writer.writerow([

@@ -1,0 +1,11 @@
+vehicle_id;type;electrical;purchase_date;engine_power;in_use;battery_capacity
+101;bicycle;1;10-03-2019;412;1;642
+102;bicycle;1;06-02-2018;323;1;693
+103;scooter;1;21-11-2019;828;1;981
+104;bicycle;0;10-02-2019;0;1;0
+105;scooter;1;20-04-2019;1366;1;590
+106;scooter;1;26-04-2015;1393;1;663
+107;bicycle;1;08-05-2016;770;1;784
+108;bicycle;1;06-04-2017;1374;1;812
+109;bicycle;1;27-01-2017;418;1;675
+110;scooter;1;25-12-2016;1127;0;894

@@ -1,9 +1,11 @@
 try:
     from .name_generator import NameGenerator
     from .date_generator import DateGenerator
+    from .parameters import parameters
 except ImportError:
     from name_generator import NameGenerator
     from date_generator import DateGenerator
+    from parameters import parameters
 
 import random
 from datetime import datetime
@@ -17,17 +19,18 @@ class DriverGenerator:
         self.name_generator = NameGenerator()
         self.date_generator = DateGenerator()
 
-        self.pesel_date_start = '01-01-1950'
-        self.pesel_date_end = '01-01-2000'
+        self.pesel_date_start = parameters.DRIVER_PESEL_DATE_START
+        self.pesel_date_end = parameters.DRIVER_PESEL_DATE_END
 
-        self.employment_date_start = '01-01-2010'
-        self.employment_date_end = '01-01-2024'
+        self.employment_date_start = parameters.DRIVER_EMPLOYMENT_DATE_START
+        self.employment_date_end = parameters.DRIVER_EMPLOYMENT_DATE_END
 
-        self.date_format = '%d-%m-%Y'
+        self.date_format = parameters.DATE_FORMAT
 
-        self.csv_delimeter = ';'
+        self.csv_delimeter = parameters.CSV_DELIMETER
 
-        self.still_working_ratio = 0.5
+        self.still_working_ratio = parameters.DRIVER_STILL_WORKING_RATIO
+        self.column_names = parameters.DRIVER_COLUMN_NAMES
 
 
     def generate_pesel(self):
@@ -79,21 +82,22 @@ class DriverGenerator:
     def _write_to_csv(self, drivers, filename='../generated_data/users.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=self.csv_delimeter)
-            writer.writerow(['PESEL', 'Imię', 'Nazwisko', 'Data Zatrudnienia', 'Czy nadal pracuje'])
+            writer.writerow(self.column_names)
 
             for driver in drivers:
                 writer.writerow([
                 driver['pesel'],
                 driver['name'],
                 driver['surname'],
-                driver['employment_date'],
-                driver['still_working']
+                driver['still_working'],
+                driver['employment_date']
             ])
                 
 
     def generate_and_save(self, filename='../generated_data/drivers.csv'):
         drivers = self.generate()
         self._write_to_csv(drivers, filename)
+        print("generated drivers")
 
 
 if __name__ == "__main__":

@@ -13,10 +13,17 @@ class NameGenerator:
         self.male_surname_api = "https://api.dane.gov.pl/resources/54097,nazwiska-meskie-stan-na-2024-01-19/csv"
         self.female_surname_api = "https://api.dane.gov.pl/resources/54098,nazwiska-zenskie-stan-na-2024-01-19/csv"
         self.surname_number_threshold = 500
-    
+
+    def remove_diacritics(self, text):
+        replacements = {
+            'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n',
+            'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
+            'Ą': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N',
+            'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z'
+        }
+        return ''.join(replacements.get(char, char) for char in text)
 
     def get_names(self):
-
         response_male = requests.get(self.male_name_api)
         csv_data_male = StringIO(response_male.text)
         data_male = pd.read_csv(csv_data_male)
@@ -25,16 +32,13 @@ class NameGenerator:
         csv_data_female = StringIO(response_female.text)
         data_female = pd.read_csv(csv_data_female)
 
-        # obciecie malo popularnych imion
         data_female = data_female[data_female.iloc[:, 2] > self.name_number_threshold]
         data_male = data_male[data_male.iloc[:, 2] > self.name_number_threshold]
-        
-        # usuniecie reszty kolumn
-        data_male = data_male["IMIĘ_PIERWSZE"]
-        data_female = data_female["IMIĘ_PIERWSZE"]
-        
+
+        data_male = data_male["IMIĘ_PIERWSZE"].apply(self.remove_diacritics)
+        data_female = data_female["IMIĘ_PIERWSZE"].apply(self.remove_diacritics)
+
         return [data_male, data_female]
-    
 
     def get_surnames(self):
         response_male = requests.get(self.male_surname_api)
@@ -45,16 +49,13 @@ class NameGenerator:
         csv_data_female = StringIO(response_female.text)
         data_female = pd.read_csv(csv_data_female)
 
-        # obciecie malo popularnych nazwisk
         data_female = data_female[data_female.iloc[:, 1] > self.surname_number_threshold]
         data_male = data_male[data_male.iloc[:, 1] > self.surname_number_threshold]
-        
-        # usuniecie reszty kolumn
-        data_male = data_male["Nazwisko aktualne"]
-        data_female = data_female["Nazwisko aktualne"]
-        
-        return [data_male, data_female]
 
+        data_male = data_male["Nazwisko aktualne"].apply(self.remove_diacritics)
+        data_female = data_female["Nazwisko aktualne"].apply(self.remove_diacritics)
+
+        return [data_male, data_female]
 
     def generate(self, quantity=100):
         names = self.get_names()
@@ -72,8 +73,8 @@ class NameGenerator:
         random_surnames_male = np.random.choice(male_surnames, size=male_nmb, replace=True)
         random_males = np.array([random_names_male, random_surnames_male])
 
-        random_names_female = np.random.choice(female_names, size=quantity-male_nmb, replace=True)
-        random_surnames_female = np.random.choice(female_surnames, size=quantity-male_nmb, replace=True)
+        random_names_female = np.random.choice(female_names, size=quantity - male_nmb, replace=True)
+        random_surnames_female = np.random.choice(female_surnames, size=quantity - male_nmb, replace=True)
         random_females = np.array([random_names_female, random_surnames_female])
 
         randoms = np.concatenate((random_males, random_females), axis=1)
@@ -81,13 +82,10 @@ class NameGenerator:
         tuples = list(zip(randoms[0], randoms[1]))
         np.random.shuffle(tuples)
 
-        # randoms = randoms.astype(str)
-        # combined = np.char.add(np.char.add(randoms[0, :], ' '), randoms[1, :])
-
         return tuples
 
 
-
 if __name__ == "__main__":
-    a = NameGenerator().generate(quantity=50)
-    print(a)
+    generator = NameGenerator()
+    names = generator.generate(quantity=50)
+    print(names)

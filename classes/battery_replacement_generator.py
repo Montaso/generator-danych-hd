@@ -6,11 +6,13 @@ import os
 class BatteryReplacementGenerator:
     def __init__(self, van_routes_csv='../generated_data/van_routes_data.csv',
                  vehicles_csv='../generated_data/vehicles_data.csv',
-                 num_replacements=100):
+                 num_replacements=100,
+                 start_index=1):
         self.num_replacements = num_replacements
 
         self.van_routes = self.load_csv_ids(van_routes_csv, 'route_id')
         self.vehicles = self.load_csv_ids(vehicles_csv, 'vehicle_id')
+        self.start_index = start_index
 
     def load_csv_ids(self, filename, id_column):
         ids = []
@@ -23,7 +25,7 @@ class BatteryReplacementGenerator:
         return ids
 
     def generate_replacement_id(self, index):
-        return index + 1
+        return index + self.start_index
 
     def generate_van_route_fk(self):
         return random.choice(self.van_routes)
