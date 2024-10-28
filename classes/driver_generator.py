@@ -89,14 +89,15 @@ class DriverGenerator:
                 driver['pesel'],
                 driver['name'],
                 driver['surname'],
-                driver['employment_date'],
-                driver['still_working']
+                driver['still_working'],
+                driver['employment_date']
             ])
                 
 
     def generate_and_save(self, filename='../generated_data/drivers.csv'):
         drivers = self.generate()
         self._write_to_csv(drivers, filename)
+        print("generated drivers")
 
 
 if __name__ == "__main__":

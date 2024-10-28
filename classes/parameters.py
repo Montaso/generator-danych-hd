@@ -15,13 +15,13 @@ class parameters:
 
 
     # Stacje
-    STATION_COLUMN_NAMES = ['Id', 'Longitude', 'Latitude', 'Capacity', 'In_Use']
+    STATION_COLUMN_NAMES = ['Id', 'Longitude', 'Latitude', 'In_Use', 'Capacity']
     STATION_LATITUDE_RANGE = (49.0, 54.8)
     STATION_LONGITUDE_RANGE = (14.1, 24.1)
     STATION_CAPACITY_RANGE = (5, 30)
 
     # Kierowcy
-    DRIVER_COLUMN_NAMES = ['PESEL', 'Imię', 'Nazwisko', 'Data Zatrudnienia', 'Czy nadal pracuje']
+    DRIVER_COLUMN_NAMES = ['PESEL', 'Imię', 'Nazwisko', 'Czy nadal pracuje', 'Data Zatrudnienia']
     DRIVER_PESEL_DATE_START = '01-01-1950'
     DRIVER_PESEL_DATE_END = '01-01-2000'
 
@@ -32,7 +32,7 @@ class parameters:
 
 
     # Vany
-    VANS_COLUMN_NAMES = ['License_Plate', 'Capacity', 'In_Use']
+    VANS_COLUMN_NAMES = ['License_Plate', 'In_Use', 'Capacity']
     VANS_LICENSE_PLATE_PREFIXES = ["GD", "KR", "WA", "PO", "LU", "BI", "CZ", "TK"]
     VANS_CAPACITY_RANGE_CM3 = (5_000_000, 20_000_000)
 
@@ -42,8 +42,8 @@ class parameters:
     VAN_ROUTE_DATE_END = "31-12-2023"
 
     # Pojazdy
-    VEHICLE_COLUMN_NAMES = ['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'battery_capacity',
-                             'in_use']
+    VEHICLE_COLUMN_NAMES = ['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'in_use',
+                            'battery_capacity']
     VEHICLE_START_DATE = "01-01-2018"
     VEHICLE_END_DATE = "31-12-2022"
     VEHICLE_ENGINE_POWER_MIN = 250

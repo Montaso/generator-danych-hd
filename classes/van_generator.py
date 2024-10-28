@@ -33,9 +33,9 @@ class VansGenerator:
             license_plate = self.generate_license_plate()
             capacity_cm3 = random.randint(*self.capacity_range_cm3)
 
-            in_use = random.choices([True, False], weights=[90, 10])[0]
+            in_use = random.choices([1, 0], weights=[90, 10])[0]
 
-            vans.append((license_plate, capacity_cm3, in_use))
+            vans.append((license_plate, in_use, capacity_cm3))
 
         return vans
 

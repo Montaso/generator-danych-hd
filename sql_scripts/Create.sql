@@ -10,8 +10,8 @@ CREATE TABLE Stacje (
     ID_stacji INT PRIMARY KEY,
     Szerokosc_geograficzna DECIMAL(10, 6) NOT NULL,
     Dlugosc_geograficzna DECIMAL(10, 6) NOT NULL,
-    Liczba_miejsc INT NOT NULL CHECK(Liczba_miejsc > 0 AND Liczba_miejsc < 50),
-    Czy_Aktualna BIT NOT NULL
+    Czy_Aktualna BIT NOT NULL,
+    Liczba_miejsc INT NOT NULL CHECK(Liczba_miejsc > 0 AND Liczba_miejsc < 50)
 );
 
 CREATE TABLE Pojazdy (
@@ -20,8 +20,8 @@ CREATE TABLE Pojazdy (
     Elektryczny BIT NOT NULL,
     Data_zakupu DATE NOT NULL CHECK(LEN(Data_zakupu) = 10),
     Moc_silnika INT NOT NULL CHECK(Moc_silnika >= 250  AND Moc_silnika <= 1500),
-    Pojemnosc_akumulatora INT NOT NULL CHECK(Pojemnosc_akumulatora >= 500  AND Pojemnosc_akumulatora <= 1000),
-    Czy_nadal_uzywany BIT NOT NULL
+    Czy_nadal_uzywany BIT NOT NULL,
+    Pojemnosc_akumulatora INT NOT NULL CHECK(Pojemnosc_akumulatora >= 500  AND Pojemnosc_akumulatora <= 1000)
 );
 
 CREATE TABLE Wypozyczenia (
@@ -45,16 +45,16 @@ CREATE TABLE Wypozyczenia (
 
 CREATE TABLE Vany (
     Numer_rejestracji VARCHAR(7) PRIMARY KEY,
-    Pojemnosc INT CHECK (Pojemnosc >= 5000000 AND Pojemnosc <= 20000000) NOT NULL,  -- Van capacity in cm^3
-    Czy_nadal_uzywany BIT NOT NULL
+    Czy_nadal_uzywany BIT NOT NULL,
+    Pojemnosc INT CHECK (Pojemnosc >= 5000000 AND Pojemnosc <= 20000000) NOT NULL  -- Van capacity in cm^3
 );
 
 CREATE TABLE Kierowcy (
     PESEL VARCHAR(11) PRIMARY KEY CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
     Imie VARCHAR(20) NOT NULL,
     Nazwisko VARCHAR(20) NOT NULL,
-    Data_zatrudnienia DATE CHECK (Data_zatrudnienia <= GETDATE()) NOT NULL,
-    Czy_nadal_pracuje BIT NOT NULL
+    Czy_nadal_pracuje BIT NOT NULL,
+    Data_zatrudnienia DATE CHECK (Data_zatrudnienia <= GETDATE()) NOT NULL
 );
 
 CREATE TABLE Trasy_Vanow (

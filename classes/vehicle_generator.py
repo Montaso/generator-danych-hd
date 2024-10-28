@@ -34,11 +34,11 @@ class VehiclesGenerator:
 
     def generate_electrical(self, vehicle_type):
         if vehicle_type == "bicycle":
-            return random.choices([True, False], weights=[80, 20])[0]
-        return random.choices([True, False], weights=[90, 10])[0]
+            return random.choices([1, 0], weights=[80, 20])[0]
+        return random.choices([1, 0], weights=[90, 10])[0]
 
     def generate_purchase_date(self):
-        random_date = DateGenerator().generate(1, self.start_date, self.end_date)[0]
+        random_date = DateGenerator().generate(1, self.start_date, self.end_date)
         return random_date
 
     def generate_engine_power(self, electrical):
@@ -48,7 +48,7 @@ class VehiclesGenerator:
         return random.randint(self.battery_capacity_min, self.battery_capacity_max) if electrical else 0
 
     def generate_in_use(self):
-        return random.choices([True, False], weights=self.in_use_weights)[0]
+        return random.choices([1, 0], weights=self.in_use_weights)[0]
 
     def generate_vehicle_data(self):
         vehicles = []
@@ -62,7 +62,7 @@ class VehiclesGenerator:
             battery_capacity = self.generate_battery_capacity(electrical)
             in_use = self.generate_in_use()
             vehicles.append(
-                (vehicle_id, vehicle_type, electrical, purchase_date, engine_power, battery_capacity, in_use))
+                (vehicle_id, vehicle_type, electrical, purchase_date, engine_power, in_use, battery_capacity))
 
         return vehicles
 

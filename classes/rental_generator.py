@@ -65,7 +65,7 @@ class RentalGenerator:
         return random.randint(self.distance_min, self.distance_max)
 
     def generate_correct_putting(self):
-        return random.choices([True, False], weights=self.correct_putting_weights)[0]
+        return random.choices([1, 0], weights=self.correct_putting_weights)[0]
 
     def generate_date_of_start(self):
         random_date = DateGenerator().generate(1, self.date_of_start_min, self.date_of_start_max)

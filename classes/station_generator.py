@@ -24,9 +24,9 @@ class StationsGenerator:
             latitude = round(random.uniform(*self.latitude_range), 6)
             longitude = round(random.uniform(*self.longitude_range), 6)
             capacity = random.randint(*self.capacity_range)
-            in_use = random.choices([True, False], weights=[90, 10])[0]
+            in_use = random.choices([1, 0], weights=[90, 10])[0]
 
-            stations.append((id, longitude, latitude, capacity, in_use))
+            stations.append((id, longitude, latitude, in_use, capacity))
 
         return stations
 

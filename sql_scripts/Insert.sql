@@ -24,7 +24,7 @@ WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
     FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    ROWTERMINATOR = '0x0a'
 );
 
 BULK INSERT Kierowcy
@@ -72,4 +72,5 @@ WITH (
     ROWTERMINATOR = '\n'
 );
 
-SELECT * FROM Uzytkownicy;
+SELECT * FROM Wymiany_Akumulatorow 
+JOIN Trasy_Vanow ON ID_trasy=FK_ID_trasy
