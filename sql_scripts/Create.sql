@@ -26,15 +26,16 @@ CREATE TABLE Pojazdy (
 
 CREATE TABLE Wypozyczenia (
     ID_wypozyczenia INT PRIMARY KEY,
-    FK_ID_pojazdu INT NOT NULL,
-    FK_ID_uzytkownika INT NOT NULL,
+    FK_Stacja_startowa INT,
+    FK_Stacja_koncowa INT,
     Koszt DECIMAL(10, 2) NOT NULL CHECK(Koszt > 0),
     Czas_wypozyczenia INT NOT NULL CHECK(Czas_wypozyczenia > 0),
     Przejechany_dystans INT CHECK(Przejechany_dystans > 0),
-    FK_Stacja_startowa INT,
-    FK_Stacja_koncowa INT,
+    FK_ID_pojazdu INT NOT NULL,
+    FK_ID_uzytkownika INT NOT NULL,
     Poprawne_odstawienie BIT NOT NULL,
     Data_startu DATE NOT NULL CHECK(LEN(Data_startu) = 10),
+    Czas_startu TIME NOT NULL
 
     FOREIGN KEY (FK_ID_pojazdu) REFERENCES Pojazdy(ID_pojazdu),
     FOREIGN KEY (FK_ID_uzytkownika) REFERENCES uzytkownicy(ID_uzytkownika),
