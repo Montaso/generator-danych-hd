@@ -1,7 +1,9 @@
 try:
     from .date_generator import DateGenerator
+    from .parameters import parameters
 except ImportError:
     from date_generator import DateGenerator
+    from parameters import parameters
 import csv
 import random
 
@@ -14,6 +16,20 @@ class RentalGenerator:
         self.stations = self.load_csv_ids(stations_filename, 'Id')
         self.vehicles = self.load_csv_ids(vehicles_filename, 'vehicle_id')
         self.users = self.load_csv_ids(users_filename, 'Id')
+
+        self.base_rate_per_minute = parameters.RENTAL_BASE_RATE_PER_MINUTE
+        self.base_rate_per_meter = parameters.RENTAL_BASE_RATE_PER_METER
+
+        self.rent_time_min = parameters.RENTAL_TIME_MIN
+        self.rent_time_max = parameters.RENTAL_TIME_MAX
+
+        self.distance_min = parameters.RENTAL_DISTANCE_MIN
+        self.distance_max = parameters.RENTAL_DISTANCE_MAX
+
+        self.correct_putting_weights = parameters.RENTAL_CORRECT_PUTTING_WEIGHTS
+
+        self.date_of_start_min = parameters.RENTAL_DATE_OF_START_MIN
+        self.date_of_start_max = parameters.RENTAL_DATE_OF_START_MAX
 
     def load_csv_ids(self, filename, id_column):
         ids = []
@@ -38,21 +54,19 @@ class RentalGenerator:
         return random.choice(self.users)
 
     def generate_cost(self, distance, rent_time):
-        base_rate_per_minute = 0.10
-        base_rate_per_meter = 0.05
-        return round(distance * base_rate_per_meter + rent_time * base_rate_per_minute, 2)
+        return round(distance * self.base_rate_per_meter + rent_time * self.base_rate_per_minute, 2)
 
     def generate_rent_time(self):
-        return random.randint(5, 180)
+        return random.randint(self.rent_time_min, self.rent_time_max)
 
     def generate_distance(self):
-        return random.randint(200, 15000)
+        return random.randint(self.distance_min, self.distance_max)
 
     def generate_correct_putting(self):
-        return random.choices([True, False], weights=[95, 5])[0]
+        return random.choices([True, False], weights=self.correct_putting_weights)[0]
 
     def generate_date_of_start(self):
-        random_date = DateGenerator().generate(1, "01-01-2022", "31-12-2023")
+        random_date = DateGenerator().generate(1, self.date_of_start_min, self.date_of_start_max)
         return random_date
 
     def generate_time_of_start(self):

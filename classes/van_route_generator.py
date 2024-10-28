@@ -1,3 +1,8 @@
+try:
+    from .parameters import parameters
+except ImportError:
+    from parameters import parameters
+
 import csv
 import random
 
@@ -15,6 +20,9 @@ class VanRoutesGenerator:
 
         self.drivers = self.load_csv_ids(drivers_filename, 'PESEL')
         self.vans = self.load_csv_ids(vans_filename, 'License_Plate')
+
+        self.route_date_start = parameters.VAN_ROUTE_DATE_START
+        self.route_date_end = parameters.VAN_ROUTE_DATE_END
 
     def load_csv_ids(self, filename, id_column):
         ids = []
@@ -36,7 +44,7 @@ class VanRoutesGenerator:
         return random.choice(self.vans)
 
     def generate_date_of_route(self):
-        return self.date_generator.generate(1, "01-01-2022", "31-12-2023")
+        return self.date_generator.generate(1, self.route_date_start, self.route_date_end)
 
     def generate_van_routes_data(self):
         routes = []
