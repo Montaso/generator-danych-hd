@@ -68,8 +68,8 @@ CREATE TABLE Trasy_Vanow (
 
 CREATE TABLE Wymiany_Akumulatorow (
     ID_wymiany INT PRIMARY KEY,
-    FK_ID_pojazdu INT NOT NULL,
     FK_ID_trasy INT NOT NULL,
+    FK_ID_pojazdu INT NOT NULL,
     FOREIGN KEY (FK_ID_pojazdu) REFERENCES Pojazdy(ID_pojazdu),
     FOREIGN KEY (FK_ID_trasy) REFERENCES Trasy_Vanow(ID_trasy)
 );

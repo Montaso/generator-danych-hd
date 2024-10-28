@@ -42,7 +42,7 @@ class UserGenerator:
             registration_dates.append(self.date_generator.generate(n=1, start_date=date if date1 > date2 else self.registration_date_start, end_date=self.registration_date_end))
 
             user = {
-                "id": ids[i] + 1,
+                "id": ids[i],
                 "name": names[i][0],
                 "surname": names[i][1],
                 "birthdate": birthdates[i],

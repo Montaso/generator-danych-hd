@@ -1,6 +1,12 @@
 # Set parameters for all tables
 
 class parameters:
+    START_DATE_T1 = '01-01-2016'
+    END_DATE_T1 = '01-01-2020'
+    START_DATE_T2 = '02-01-2020'
+    END_DATE_T2 = '01-01-2024'
+    START_DATE_ALL = START_DATE_T2
+    END_DATE_ALL = END_DATE_T2
 
     CSV_DELIMETER = ';'
     DATE_FORMAT = '%d-%m-%Y'
@@ -8,10 +14,10 @@ class parameters:
     # Uzytkownicy
     USER_COLUMN_NAMES = ['Id', 'Imię', 'Nazwisko', 'Data Urodzenia', 'Data Rejestracji']
     USER_BIRTHDATE_START = "01-01-1950"
-    USER_BIRTHDATE_END = "01-01-2011"
+    USER_BIRTHDATE_END = "01-01-2008"
 
-    USER_REGISTRATION_DATE_START = "01-01-2010"
-    USER_REGISTRATION_DATE_END = "01-01-2024"
+    USER_REGISTRATION_DATE_START = START_DATE_ALL
+    USER_REGISTRATION_DATE_END = END_DATE_ALL
 
 
     # Stacje
@@ -23,10 +29,10 @@ class parameters:
     # Kierowcy
     DRIVER_COLUMN_NAMES = ['PESEL', 'Imię', 'Nazwisko', 'Czy nadal pracuje', 'Data Zatrudnienia']
     DRIVER_PESEL_DATE_START = '01-01-1950'
-    DRIVER_PESEL_DATE_END = '01-01-2000'
+    DRIVER_PESEL_DATE_END = '01-01-1998'
 
-    DRIVER_EMPLOYMENT_DATE_START = '01-01-2010'
-    DRIVER_EMPLOYMENT_DATE_END = '01-01-2024'
+    DRIVER_EMPLOYMENT_DATE_START = START_DATE_ALL
+    DRIVER_EMPLOYMENT_DATE_END = END_DATE_ALL
 
     DRIVER_STILL_WORKING_RATIO = 0.5
 
@@ -38,14 +44,14 @@ class parameters:
 
     # Trasy Vanow
     VAN_ROUTE_COLUMN_NAMES = ['route_id', 'driver_fk', 'van_fk', 'date_of_route']
-    VAN_ROUTE_DATE_START = "01-01-2022"
-    VAN_ROUTE_DATE_END = "31-12-2023"
+    VAN_ROUTE_DATE_START = START_DATE_ALL
+    VAN_ROUTE_DATE_END = END_DATE_ALL
 
     # Pojazdy
     VEHICLE_COLUMN_NAMES = ['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'in_use',
                             'battery_capacity']
-    VEHICLE_START_DATE = "01-01-2018"
-    VEHICLE_END_DATE = "31-12-2022"
+    VEHICLE_START_DATE = "01-01-2015"
+    VEHICLE_END_DATE = START_DATE_T2
     VEHICLE_ENGINE_POWER_MIN = 250
     VEHICLE_ENGINE_POWER_MAX = 1500
     VEHICLE_BATTERY_CAPACITY_MIN = 500
@@ -63,6 +69,6 @@ class parameters:
     RENTAL_DISTANCE_MIN = 200
     RENTAL_DISTANCE_MAX = 15000
     RENTAL_CORRECT_PUTTING_WEIGHTS = [95, 5]
-    RENTAL_DATE_OF_START_MIN = "01-01-2022"
-    RENTAL_DATE_OF_START_MAX = "31-12-2023"
+    RENTAL_DATE_OF_START_MIN = START_DATE_ALL
+    RENTAL_DATE_OF_START_MAX = END_DATE_ALL
 

@@ -1,7 +1,7 @@
 SET DATEFORMAT DMY;
 
 BULK INSERT Uzytkownicy
-FROM '/data/users.csv'
+FROM '/data/users12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -10,7 +10,7 @@ WITH (
 );
 
 BULK INSERT Pojazdy
-FROM '/data/vehicles_data.csv'
+FROM '/data/vehicles_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -19,7 +19,7 @@ WITH (
 );
 
 BULK INSERT Vany
-FROM '/data/vans_data.csv'
+FROM '/data/vans_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -28,7 +28,7 @@ WITH (
 );
 
 BULK INSERT Kierowcy
-FROM '/data/drivers.csv'
+FROM '/data/drivers12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -37,7 +37,7 @@ WITH (
 );
 
 BULK INSERT Stacje
-FROM '/data/stations_data.csv'
+FROM '/data/stations_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -46,7 +46,7 @@ WITH (
 );
 
 BULK INSERT Wypozyczenia
-FROM '/data/rentals_data.csv'
+FROM '/data/rentals_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -55,7 +55,7 @@ WITH (
 );
 
 BULK INSERT Trasy_Vanow
-FROM '/data/van_routes_data.csv'
+FROM '/data/van_routes_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -64,7 +64,7 @@ WITH (
 );
 
 BULK INSERT Wymiany_Akumulatorow
-FROM '/data/battery_replacements_data.csv'
+FROM '/data/battery_replacements_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -72,4 +72,6 @@ WITH (
     ROWTERMINATOR = '\n'
 );
 
+SELECT * FROM Kierowcy
 SELECT * FROM Wymiany_Akumulatorow
+
