@@ -14,9 +14,11 @@ except ImportError:
 
 class VanRoutesGenerator:
     def __init__(self, drivers_filename='../generated_data/drivers.csv',
-                 vans_filename='../generated_data/vans_data.csv', num_routes=100):
+                 vans_filename='../generated_data/vans_data.csv',
+                 num_routes=100, start_index=1):
         self.num_routes = num_routes
         self.date_generator = DateGenerator()
+        self.start_index = start_index
 
         self.drivers = self.load_csv_ids(drivers_filename, 'PESEL')
         self.vans = self.load_csv_ids(vans_filename, 'License_Plate')
@@ -37,7 +39,7 @@ class VanRoutesGenerator:
         return ids
 
     def generate_route_id(self, index):
-        return index + 1
+        return index + self.start_index
 
     def generate_driver_fk(self):
         return random.choice(self.drivers)

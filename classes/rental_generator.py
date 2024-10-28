@@ -9,9 +9,11 @@ import random
 
 
 class RentalGenerator:
-    def __init__(self, stations_filename, vehicles_filename, users_filename, num_rentals=100):
+    def __init__(self, stations_filename, vehicles_filename, users_filename,
+                 num_rentals=100, start_index=1):
         self.num_rentals = num_rentals
         self.date_generator = DateGenerator()
+        self.start_index = start_index
 
         self.stations = self.load_csv_ids(stations_filename, 'Id')
         self.vehicles = self.load_csv_ids(vehicles_filename, 'vehicle_id')
@@ -44,7 +46,7 @@ class RentalGenerator:
         return ids
 
     def generate_rental_id(self, index):
-        return index + 1
+        return index
 
     def generate_station_fk(self):
         return random.choice(self.stations)
@@ -80,7 +82,7 @@ class RentalGenerator:
         rentals = []
 
         for i in range(self.num_rentals):
-            rental_id = self.generate_rental_id(i)
+            rental_id = self.generate_rental_id(i + self.start_index)
             start_station_fk = self.generate_station_fk()
             end_station_fk = self.generate_station_fk()
             vehicle_fk = self.generate_vehicle_fk()

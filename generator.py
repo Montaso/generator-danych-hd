@@ -12,32 +12,35 @@ def generate_drivers():
     DriverGenerator(100).generate_and_save('generated_data/drivers.csv')
 
 def generate_stations():
-    StationsGenerator(100).generate_and_save('generated_data/stations_data.csv')
+    StationsGenerator(100, 101).generate_and_save('generated_data/stations_data.csv')
 
 def generate_users():
-    UserGenerator(100).generate_and_save('generated_data/users.csv')
+    UserGenerator(100, 101).generate_and_save('generated_data/users.csv')
 
 def generate_vans():
     VansGenerator(100).generate_and_save('generated_data/vans_data.csv')
 
 def generate_vehicles():
-    VehiclesGenerator(100).generate_and_save('generated_data/vehicles_data.csv')
+    VehiclesGenerator(100, start_index=101).generate_and_save('generated_data/vehicles_data.csv')
 
 def generate_rentals():
     RentalGenerator(stations_filename='generated_data/stations_data.csv',
                     vehicles_filename='generated_data/vehicles_data.csv',
                     users_filename='generated_data/users.csv',
-                    num_rentals=1000).generate_and_save('generated_data/rentals_data.csv')
+                    num_rentals=1000,
+                    start_index=1001).generate_and_save('generated_data/rentals_data.csv')
 
 def generate_van_routes():
     VanRoutesGenerator(drivers_filename='generated_data/drivers.csv',
                        vans_filename='generated_data/vans_data.csv',
-                       num_routes=1000).generate_and_save('generated_data/van_routes_data.csv')
+                       num_routes=1000,
+                       start_index=1001).generate_and_save('generated_data/van_routes_data.csv')
 
 def generate_battery_replacements():
     BatteryReplacementGenerator(van_routes_csv='generated_data/van_routes_data.csv',
                                 vehicles_csv='generated_data/vehicles_data.csv',
-                                num_replacements=1000).generate_and_save('generated_data/battery_replacements_data.csv')
+                                num_replacements=1000,
+                                start_index=1001).generate_and_save('generated_data/battery_replacements_data.csv')
 
 
 if __name__ == "__main__":

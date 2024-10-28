@@ -12,11 +12,12 @@ import time
 
 
 class UserGenerator:
-    def __init__(self, n=100):
+    def __init__(self, n=100, start_index=1):
         self.n = n
 
         self.name_generator = NameGenerator()
         self.date_generator = DateGenerator()
+        self.start_index = start_index
         
         self.birthdate_start = parameters.USER_BIRTHDATE_START
         self.birthdate_end = parameters.USER_BIRTHDATE_END
@@ -30,7 +31,7 @@ class UserGenerator:
     def generate(self):
         users = []
 
-        ids = [i for i in range(self.n)]
+        ids = [i + self.start_index for i in range(self.n)]
         names = self.name_generator.generate(quantity=self.n)
         birthdates = self.date_generator.generate(n=self.n, start_date=self.birthdate_start, end_date=self.birthdate_end)
         

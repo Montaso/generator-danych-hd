@@ -8,19 +8,20 @@ import csv
 
 
 class StationsGenerator:
-    def __init__(self, num_stations=500):
+    def __init__(self, num_stations=500, start_index=1):
         self.num_stations = num_stations
         self.latitude_range = parameters.STATION_LATITUDE_RANGE
         self.longitude_range = parameters.STATION_LONGITUDE_RANGE
         self.capacity_range = parameters.STATION_CAPACITY_RANGE
         self.column_names = parameters.STATION_COLUMN_NAMES
+        self.start_index = start_index
 
         
     def _generate_station_data(self):
         stations = []
 
         for i in range(self.num_stations):
-            id = i + 1
+            id = i + self.start_index
             latitude = round(random.uniform(*self.latitude_range), 6)
             longitude = round(random.uniform(*self.longitude_range), 6)
             capacity = random.randint(*self.capacity_range)

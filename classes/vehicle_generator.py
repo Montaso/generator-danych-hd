@@ -10,9 +10,10 @@ except ImportError:
 
 
 class VehiclesGenerator:
-    def __init__(self, num_vehicles=100, 
+    def __init__(self, num_vehicles=100,
                  start_date=parameters.VEHICLE_START_DATE, 
-                 end_date=parameters.VEHICLE_END_DATE):
+                 end_date=parameters.VEHICLE_END_DATE,
+                 start_index=1):
         
         self.num_vehicles = num_vehicles
         self.start_date = start_date
@@ -24,10 +25,11 @@ class VehiclesGenerator:
         self.battery_capacity_max = parameters.VEHICLE_BATTERY_CAPACITY_MAX
         self.in_use_weights = parameters.VEHICLE_IN_USE_WEIGHTS
         self.column_names = parameters.VEHICLE_COLUMN_NAMES
+        self.start_index = start_index
 
 
     def generate_id(self, index):
-        return index + 1
+        return index + self.start_index
 
     def generate_vehicle_type(self):
         return random.choice(self.vehicle_types)
