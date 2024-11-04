@@ -5,8 +5,8 @@ class parameters:
     END_DATE_T1 = '01-01-2020'
     START_DATE_T2 = '02-01-2020'
     END_DATE_T2 = '01-01-2024'
-    START_DATE_ALL = START_DATE_T2
-    END_DATE_ALL = END_DATE_T2
+    START_DATE_ALL = START_DATE_T1
+    END_DATE_ALL = END_DATE_T1
 
     CSV_DELIMETER = ';'
     DATE_FORMAT = '%d-%m-%Y'
@@ -27,7 +27,7 @@ class parameters:
     STATION_CAPACITY_RANGE = (5, 30)
 
     # Kierowcy
-    DRIVER_COLUMN_NAMES = ['PESEL', 'Imię', 'Nazwisko', 'Czy nadal pracuje', 'Data Zatrudnienia']
+    DRIVER_COLUMN_NAMES = ['id', 'PESEL', 'Imię', 'Nazwisko', 'Czy nadal pracuje', 'Data Zatrudnienia']
     DRIVER_PESEL_DATE_START = '01-01-1950'
     DRIVER_PESEL_DATE_END = '01-01-1998'
 
