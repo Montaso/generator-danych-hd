@@ -50,7 +50,8 @@ CREATE TABLE Vany (
 );
 
 CREATE TABLE Kierowcy (
-    PESEL VARCHAR(11) PRIMARY KEY CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
+    ID_kierowcy INT PRIMARY KEY,
+    PESEL VARCHAR(11) UNIQUE CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
     Imie VARCHAR(20) NOT NULL,
     Nazwisko VARCHAR(20) NOT NULL,
     Czy_nadal_pracuje BIT NOT NULL,
@@ -59,10 +60,10 @@ CREATE TABLE Kierowcy (
 
 CREATE TABLE Trasy_Vanow (
     ID_trasy INT PRIMARY KEY,
-    FK_PESEL_Kierowcy VARCHAR(11) NOT NULL,
+    FK_ID_kierowcy VARCHAR(11) NOT NULL,
     FK_Numer_rejestracji_vana VARCHAR(7) NOT NULL,
     Data_trasy DATE CHECK (Data_trasy <= GETDATE()),
-    FOREIGN KEY (FK_PESEL_Kierowcy) REFERENCES Kierowcy(PESEL),
+    FOREIGN KEY (FK_ID_kierowcy) REFERENCES Kierowcy(ID_kierowcy),
     FOREIGN KEY (FK_Numer_rejestracji_vana) REFERENCES Vany(Numer_rejestracji)
 );
 
