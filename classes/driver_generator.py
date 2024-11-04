@@ -13,8 +13,9 @@ import csv
 
 
 class DriverGenerator:
-    def __init__(self, n=100):
+    def __init__(self, n=100, start_index=1):
         self.n = n
+        self.start_index = start_index
 
         self.name_generator = NameGenerator()
         self.date_generator = DateGenerator()
@@ -32,31 +33,29 @@ class DriverGenerator:
         self.still_working_ratio = parameters.DRIVER_STILL_WORKING_RATIO
         self.column_names = parameters.DRIVER_COLUMN_NAMES
 
-
     def generate_pesel(self):
         random_date = self.date_generator.generate(n=1, start_date=self.pesel_date_start, end_date=self.pesel_date_end)
         date_part = datetime.strptime(random_date, self.date_format).strftime('%y%m%d')
-        
-        
+
         sequence_number = f"{random.randint(0, 9999):04d}"
-        
+
         pesel_without_checksum = date_part + sequence_number
 
         weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
         checksum = sum(int(pesel_without_checksum[i]) * weights[i] for i in range(10)) % 10
         checksum = (10 - checksum) % 10
-        
-        pesel = pesel_without_checksum + str(checksum)
-        
-        return pesel
 
+        pesel = pesel_without_checksum + str(checksum)
+
+        return pesel
 
     def generate(self):
         drivers = []
         unique_pesels = set()
 
         names = self.name_generator.generate(quantity=self.n)
-        employment_dates = self.date_generator.generate(n=self.n, start_date=self.employment_date_start, end_date=self.employment_date_end)
+        employment_dates = self.date_generator.generate(n=self.n, start_date=self.employment_date_start,
+                                                        end_date=self.employment_date_end)
 
         for i in range(self.n):
             # nie powtarzajace sie pesele
@@ -67,6 +66,7 @@ class DriverGenerator:
             unique_pesels.add(pesel)
 
             driver = {
+                "id": i + self.start_index,
                 "pesel": pesel,
                 "name": names[i][0],
                 "surname": names[i][1],
@@ -75,9 +75,8 @@ class DriverGenerator:
             }
 
             drivers.append(driver)
-        
-        return drivers
 
+        return drivers
 
     def _write_to_csv(self, drivers, filename='../generated_data/users.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
@@ -86,13 +85,13 @@ class DriverGenerator:
 
             for driver in drivers:
                 writer.writerow([
-                driver['pesel'],
-                driver['name'],
-                driver['surname'],
-                driver['still_working'],
-                driver['employment_date']
-            ])
-                
+                    driver['id'],
+                    driver['pesel'],
+                    driver['name'],
+                    driver['surname'],
+                    driver['still_working'],
+                    driver['employment_date']
+                ])
 
     def generate_and_save(self, filename='../generated_data/drivers.csv'):
         drivers = self.generate()

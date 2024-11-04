@@ -20,14 +20,13 @@ class VanRoutesGenerator:
         self.date_generator = DateGenerator()
         self.start_index = start_index
 
-        self.drivers = self.load_csv_ids(drivers_filename, 'PESEL')
+        self.drivers = self.load_csv_ids(drivers_filename, 'id')
         self.vans = self.load_csv_ids(vans_filename, 'License_Plate')
 
         self.route_date_start = parameters.VAN_ROUTE_DATE_START
         self.route_date_end = parameters.VAN_ROUTE_DATE_END
         self.column_names = parameters.VAN_ROUTE_COLUMN_NAMES
 
-        
     def load_csv_ids(self, filename, id_column):
         ids = []
         try:
