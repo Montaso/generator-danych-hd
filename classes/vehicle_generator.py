@@ -27,6 +27,8 @@ class VehiclesGenerator:
         self.column_names = parameters.VEHICLE_COLUMN_NAMES
         self.start_index = start_index
 
+    def generate_name(self, type, electrical, id):
+        return f'{type}{electrical}{id}'
 
     def generate_id(self, index):
         return index + self.start_index
@@ -63,8 +65,9 @@ class VehiclesGenerator:
             engine_power = self.generate_engine_power(electrical)
             battery_capacity = self.generate_battery_capacity(electrical)
             in_use = self.generate_in_use()
+            name = self.generate_name(vehicle_type, electrical, vehicle_id)
             vehicles.append(
-                (vehicle_id, vehicle_type, electrical, purchase_date, engine_power, in_use, battery_capacity))
+                (vehicle_id, vehicle_type, electrical, purchase_date, engine_power, in_use, battery_capacity, name))
 
         return vehicles
 

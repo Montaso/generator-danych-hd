@@ -61,6 +61,7 @@ def generate_battery_replacements(start_index, rows, name_end, source_name_end):
 
 def generate_SCD(num=1):
     still_working_drivers = []
+    still_in_use_vehicles = []
     lines = 1
 
     with open('generated_data/drivers.csv', mode='r', newline='', encoding='utf-8') as file:
@@ -82,6 +83,27 @@ def generate_SCD(num=1):
                 random_driver['Czy nadal pracuje'] = 0
                 random_driver['id'] = lines
                 writer.writerow(random_driver)
+
+    lines = 1
+    with open('generated_data/vehicles_data.csv', mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file, delimiter=';')
+        for row in reader:
+            if row['in_use'] == '1':
+                still_in_use_vehicles.append(row)
+
+    if still_working_drivers:
+        selected_vehicles = random.sample(still_in_use_vehicles, min(num, len(still_in_use_vehicles)))
+        with open('generated_data/vehicles_data12.csv', mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file, delimiter=';')
+            for _ in reader:
+                lines += 1
+        with open('generated_data/vehicles_data12.csv', mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=selected_vehicles[0].keys(), delimiter=';')
+
+            for random_vehicle in selected_vehicles:
+                random_vehicle['in_use'] = 0
+                random_vehicle['vehicle_id'] = lines
+                writer.writerow(random_vehicle)
 
 
 def generate_dimension_data(dim_index=1, dim_rows=100, name_end=''):

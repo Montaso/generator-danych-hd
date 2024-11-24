@@ -12,7 +12,7 @@ class parameters:
     DATE_FORMAT = '%d-%m-%Y'
 
     # Uzytkownicy
-    USER_COLUMN_NAMES = ['Id', 'Imię', 'Nazwisko', 'Data Urodzenia', 'Data Rejestracji']
+    USER_COLUMN_NAMES = ['Id', 'Imię', 'Nazwisko', 'Data Urodzenia', 'Data Rejestracji', 'Pesel']
     USER_BIRTHDATE_START = "01-01-1950"
     USER_BIRTHDATE_END = "01-01-2008"
 
@@ -49,7 +49,7 @@ class parameters:
 
     # Pojazdy
     VEHICLE_COLUMN_NAMES = ['vehicle_id', 'type', 'electrical', 'purchase_date', 'engine_power', 'in_use',
-                            'battery_capacity']
+                            'battery_capacity', 'name']
     VEHICLE_START_DATE = "01-01-2015"
     VEHICLE_END_DATE = START_DATE_T2
     VEHICLE_ENGINE_POWER_MIN = 250

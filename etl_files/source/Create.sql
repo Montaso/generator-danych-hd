@@ -24,7 +24,8 @@ CREATE TABLE Pojazdy (
     Data_zakupu DATE NOT NULL CHECK(LEN(Data_zakupu) = 10),
     Moc_silnika INT NOT NULL CHECK(Moc_silnika >= 250  AND Moc_silnika <= 1500),
     Czy_nadal_uzywany BIT NOT NULL,
-    Pojemnosc_akumulatora INT NOT NULL CHECK(Pojemnosc_akumulatora >= 500  AND Pojemnosc_akumulatora <= 1000)
+    Pojemnosc_akumulatora INT NOT NULL CHECK(Pojemnosc_akumulatora >= 500  AND Pojemnosc_akumulatora <= 1000),
+	Nazwa varchar(20) NOT NULL
 );
 
 CREATE TABLE Wypozyczenia (
@@ -54,7 +55,7 @@ CREATE TABLE Vany (
 
 CREATE TABLE Kierowcy (
     ID_kierowcy INT PRIMARY KEY,
-    PESEL VARCHAR(11) UNIQUE CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
+    PESEL VARCHAR(11) CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
     Imie VARCHAR(20) NOT NULL,
     Nazwisko VARCHAR(20) NOT NULL,
     Czy_nadal_pracuje BIT NOT NULL,

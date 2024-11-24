@@ -1,7 +1,9 @@
+use Przejazd
+
 SET DATEFORMAT DMY;
 
 BULK INSERT Uzytkownicy
-FROM '/data/users12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data\users12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -10,7 +12,7 @@ WITH (
 );
 
 BULK INSERT Pojazdy
-FROM '/data/vehicles_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/vehicles_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -19,7 +21,7 @@ WITH (
 );
 
 BULK INSERT Vany
-FROM '/data/vans_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/vans_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -28,7 +30,7 @@ WITH (
 );
 
 BULK INSERT Kierowcy
-FROM '/data/drivers12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/drivers12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -37,7 +39,7 @@ WITH (
 );
 
 BULK INSERT Stacje
-FROM '/data/stations_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/stations_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -46,7 +48,7 @@ WITH (
 );
 
 BULK INSERT Wypozyczenia
-FROM '/data/rentals_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/rentals_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -55,7 +57,7 @@ WITH (
 );
 
 BULK INSERT Trasy_Vanow
-FROM '/data/van_routes_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/van_routes_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -64,14 +66,11 @@ WITH (
 );
 
 BULK INSERT Wymiany_Akumulatorow
-FROM '/data/battery_replacements_data12.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/battery_replacements_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
     FIELDTERMINATOR = ';',
     ROWTERMINATOR = '\n'
 );
-
-SELECT * FROM Kierowcy
-SELECT * FROM Wymiany_Akumulatorow
 
