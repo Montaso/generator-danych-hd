@@ -3,7 +3,7 @@ use Przejazd
 SET DATEFORMAT DMY;
 
 BULK INSERT Uzytkownicy
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/users.csv'
+FROM '/data/users.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -12,7 +12,7 @@ WITH (
 );
 
 BULK INSERT Pojazdy
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/vehicles_data.csv'
+FROM '/data/vehicles_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -21,7 +21,7 @@ WITH (
 );
 
 BULK INSERT Vany
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/vans_data.csv'
+FROM '/data/vans_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -30,7 +30,7 @@ WITH (
 );
 
 BULK INSERT Kierowcy
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/drivers.csv'
+FROM '/data/drivers.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -39,7 +39,7 @@ WITH (
 );
 
 BULK INSERT Stacje
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/stations_data.csv'
+FROM '/data/stations_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -48,7 +48,7 @@ WITH (
 );
 
 BULK INSERT Wypozyczenia
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/rentals_data.csv'
+FROM '/data/rentals_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -57,7 +57,7 @@ WITH (
 );
 
 BULK INSERT Trasy_Vanow
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/van_routes_data.csv'
+FROM '/data/van_routes_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -66,7 +66,7 @@ WITH (
 );
 
 BULK INSERT Wymiany_Akumulatorow
-FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/battery_replacements_data.csv'
+FROM '/data/battery_replacements_data.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -74,3 +74,4 @@ WITH (
     ROWTERMINATOR = '\n'
 );
 
+SELECT * FROM Wymiany_Akumulatorow
