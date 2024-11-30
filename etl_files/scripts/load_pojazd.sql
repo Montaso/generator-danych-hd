@@ -6,7 +6,6 @@ GO
 
 CREATE VIEW vETLDimPojazdy AS
 SELECT
-    ID_pojazdu,
     Typ,
     CASE 
         WHEN Elektryczny = 1 THEN 'Yes'
@@ -30,15 +29,20 @@ GO
 
 MERGE INTO Pojazd AS TT
 USING vETLDimPojazdy AS ST
-ON TT.ID_pojazdu = ST.ID_pojazdu
+ON TT.Nazwa = ST.Nazwa
+WHEN MATCHED AND TT.Czy_nadal_uzywany <> ST.Czy_nadal_uzywany THEN
+    UPDATE SET 
+        TT.Czy_nadal_uzywany = ST.Czy_nadal_uzywany
 WHEN NOT MATCHED THEN
-    INSERT (ID_pojazdu, Typ, Elektryczny, Typ_pojemnosci_akumulatora, Czy_nadal_uzywany, Nazwa)
-    VALUES (ST.ID_pojazdu, ST.Typ, ST.Elektryczny, ST.Typ_pojemnosci_akumulatora, ST.Czy_nadal_uzywany, ST.Nazwa)
+    INSERT (Typ, Elektryczny, Typ_pojemnosci_akumulatora, Czy_nadal_uzywany, Nazwa)
+    VALUES (ST.Typ, ST.Elektryczny, ST.Typ_pojemnosci_akumulatora, ST.Czy_nadal_uzywany, ST.Nazwa)
 WHEN NOT MATCHED BY SOURCE THEN
     DELETE;
-GO
 
 DROP VIEW vETLDimPojazdy;
-GO
+GO 
 
+USE PrzejazdDW
 SELECT * FROM Pojazd
+
+

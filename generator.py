@@ -1,4 +1,5 @@
 import csv
+import os
 import threading
 import random
 
@@ -62,6 +63,7 @@ def generate_battery_replacements(start_index, rows, name_end, source_name_end):
 def generate_SCD(num=1):
     still_working_drivers = []
     still_in_use_vehicles = []
+    still_in_use_stations = []
     lines = 1
 
     with open('generated_data/drivers.csv', mode='r', newline='', encoding='utf-8') as file:
@@ -91,7 +93,7 @@ def generate_SCD(num=1):
             if row['in_use'] == '1':
                 still_in_use_vehicles.append(row)
 
-    if still_working_drivers:
+    if still_in_use_vehicles:
         selected_vehicles = random.sample(still_in_use_vehicles, min(num, len(still_in_use_vehicles)))
         with open('generated_data/vehicles_data12.csv', mode='r', newline='', encoding='utf-8') as file:
             reader = csv.DictReader(file, delimiter=';')
@@ -104,6 +106,27 @@ def generate_SCD(num=1):
                 random_vehicle['in_use'] = 0
                 random_vehicle['vehicle_id'] = lines
                 writer.writerow(random_vehicle)
+
+    lines = 1
+    with open('generated_data/stations_data.csv', mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file, delimiter=';')
+        for row in reader:
+            if row['In_Use'] == '1':
+                still_in_use_stations.append(row)
+
+    if still_in_use_stations:
+        selected_stations = random.sample(still_in_use_stations, min(num, len(still_in_use_stations)))
+        with open('generated_data/stations_data12.csv', mode='r', newline='', encoding='utf-8') as file:
+            reader = csv.DictReader(file, delimiter=';')
+            for _ in reader:
+                lines += 1
+        with open('generated_data/stations_data12.csv', mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=selected_stations[0].keys(), delimiter=';')
+
+            for random_station in selected_stations:
+                random_station['In_Use'] = 0
+                random_station['Id'] = lines
+                writer.writerow(random_station)
 
 
 def generate_dimension_data(dim_index=1, dim_rows=100, name_end=''):
@@ -172,7 +195,6 @@ if __name__ == "__main__":
     generate_dimension_data(101, 10, '2')
     for dim in dimensions:
         merge(dim)
-    generate_SCD()
 
     generate_fact_data(1001, 100, '2', '12')
     merge('van_routes_data')
@@ -180,6 +202,8 @@ if __name__ == "__main__":
 
     generate_missing_fact_data(1001, 100, '2', '12')
     merge('battery_replacements_data')
+
+    generate_SCD()
 
 
 

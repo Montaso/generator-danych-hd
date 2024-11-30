@@ -3,7 +3,7 @@ use Przejazd
 SET DATEFORMAT DMY;
 
 BULK INSERT Uzytkownicy
-FROM 'data\users2.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data\users12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
@@ -12,11 +12,11 @@ WITH (
 );
 
 BULK INSERT Pojazdy
-FROM '/data/vehicles_data2.csv'
+FROM 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data/vehicles_data12.csv'
 WITH (
     FORMAT = 'CSV',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
+    FIELDTERMINATOR = ',',
     ROWTERMINATOR = '\n'
 );
 
