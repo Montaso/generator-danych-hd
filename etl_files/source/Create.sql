@@ -14,7 +14,8 @@ CREATE TABLE Stacje (
     Szerokosc_geograficzna DECIMAL(10, 6) NOT NULL,
     Dlugosc_geograficzna DECIMAL(10, 6) NOT NULL,
     Czy_Aktualna BIT NOT NULL,
-    Liczba_miejsc INT NOT NULL CHECK(Liczba_miejsc > 0 AND Liczba_miejsc < 50)
+    Liczba_miejsc INT NOT NULL CHECK(Liczba_miejsc > 0 AND Liczba_miejsc < 50),
+	Nazwa varchar(20) NOT NULL
 );
 
 CREATE TABLE Pojazdy (
@@ -38,7 +39,7 @@ CREATE TABLE Wypozyczenia (
     FK_ID_pojazdu INT NOT NULL,
     FK_ID_uzytkownika INT NOT NULL,
     Poprawne_odstawienie BIT NOT NULL,
-    Data_startu DATE NOT NULL CHECK(LEN(Data_startu) = 10),
+    Data_startu DATE NOT NULL,
     Czas_startu TIME NOT NULL
 
     FOREIGN KEY (FK_ID_pojazdu) REFERENCES Pojazdy(ID_pojazdu),
