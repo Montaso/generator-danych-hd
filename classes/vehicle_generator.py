@@ -53,6 +53,12 @@ class VehiclesGenerator:
 
     def generate_in_use(self):
         return random.choices([1, 0], weights=self.in_use_weights)[0]
+    
+    def generate_date_of_deactivation(self, in_use, purchase_date):
+        if in_use:
+            return None
+        else:
+            return DateGenerator().generate(1, purchase_date, self.end_date)
 
     def generate_vehicle_data(self):
         vehicles = []
@@ -66,6 +72,7 @@ class VehiclesGenerator:
             battery_capacity = self.generate_battery_capacity(electrical)
             in_use = self.generate_in_use()
             name = self.generate_name(vehicle_type, electrical, vehicle_id)
+            # date_of_deactivation = self.generate_date_of_deactivation(in_use, purchase_date)
             vehicles.append(
                 (vehicle_id, vehicle_type, electrical, purchase_date, engine_power, in_use, battery_capacity, name))
 

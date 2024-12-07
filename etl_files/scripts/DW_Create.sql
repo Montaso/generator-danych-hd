@@ -1,14 +1,14 @@
-USE Przejazd
+USE PrzejazdDW
 
 
 CREATE TABLE Uzytkownik (
-    ID_uzytkownika INT PRIMARY KEY,
+    ID_uzytkownika INT IDENTITY(1,1) PRIMARY KEY,
     Imie_i_nazwisko VARCHAR(40) NOT NULL,
     PESEL CHAR(11) NOT NULL
 );
 
 CREATE TABLE Stacja (
-    ID_stacji INT PRIMARY KEY,
+    ID_stacji INT IDENTITY(1,1) PRIMARY KEY,
     Lokalizacja VARCHAR(20) NOT NULL,
     Wielkosc VARCHAR(20) NOT NULL,
     Czy_aktualna VARCHAR(3) NOT NULL,
@@ -16,13 +16,13 @@ CREATE TABLE Stacja (
 );
 
 CREATE TABLE Czas (
-    ID_czasu INT PRIMARY KEY,
+    ID_czasu INT  IDENTITY(1,1) PRIMARY KEY,
     Godzina TINYINT NOT NULL,
     Minuta TINYINT NOT NULL
 );
 
 CREATE TABLE Data (
-    ID_daty INT PRIMARY KEY,
+    ID_daty INT IDENTITY(1,1) PRIMARY KEY,
     Dzien TINYINT NOT NULL,
     Miesiac TINYINT NOT NULL,
     Rok SMALLINT NOT NULL,
@@ -33,23 +33,24 @@ CREATE TABLE Data (
 );
 
 CREATE TABLE Junk (
-    ID_junk INT PRIMARY KEY,
+    ID_junk INT IDENTITY (1,1) PRIMARY KEY,
     Typ_trasy VARCHAR(20) NOT NULL,
     Typ_sredniego_spalania VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE Pojazd (
-    ID_pojazdu INT PRIMARY KEY,
+    ID_pojazdu INT IDENTITY(1,1) PRIMARY KEY,
     Typ VARCHAR(20) NOT NULL,
     Elektryczny VARCHAR(3) NOT NULL,
     Typ_pojemnosci_akumulatora VARCHAR(20) NOT NULL,
     Czy_nadal_uzywany VARCHAR(3) NOT NULL,
-    Nazwa VARCHAR(20) NOT NULL
+    Nazwa VARCHAR(20) NOT NULL,
+	Data_dezaktywacji DATE
 );
 
 CREATE TABLE Wypozyczenie_Junk (
-    ID_junk INT PRIMARY KEY,
-    Poprawne_Odstawienie VARCHAR(3) NOT NULL,
+    ID_junk INT IDENTITY(1,1) PRIMARY KEY,
+    Poprawne_odstawienie VARCHAR(3) NOT NULL,
 );
 
 CREATE TABLE Wypozyczenie (
