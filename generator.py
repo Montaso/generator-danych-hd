@@ -12,6 +12,7 @@ from classes.van_generator import VansGenerator
 from classes.van_route_generator import VanRoutesGenerator
 from classes.vehicle_generator import VehiclesGenerator
 from classes.parameters import parameters
+from classes.date_generator import DateGenerator
 from merger import merge
 
 
@@ -105,6 +106,7 @@ def generate_SCD(num=1):
             for random_vehicle in selected_vehicles:
                 random_vehicle['in_use'] = 0
                 random_vehicle['vehicle_id'] = lines
+                #random_vehicle['date_of_deactivation'] = DateGenerator().generate(1, '01-01-2020', '01-01-2024')
                 writer.writerow(random_vehicle)
 
     lines = 1

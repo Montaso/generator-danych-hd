@@ -24,4 +24,5 @@ SELECT
 FROM DateRange
 OPTION (MAXRECURSION 0);
 
+use PrzejazdDW
 select * from Data

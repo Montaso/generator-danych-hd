@@ -1,0 +1,32 @@
+WITH 
+MEMBER [Measures].[Aktywni U퓓tkownicy] AS
+    COUNT(
+        FILTER(
+            [Uzytkownik].[ID Uzytkownika].[ID Uzytkownika].MEMBERS,
+            [Measures].[Wypozyczenie Count] > 0
+        )
+    )
+
+MEMBER [Measures].[Srednia Liczba Przejazdow na Aktywnego Uzytkownika] AS
+    IIF(
+        [Measures].[Aktywni U퓓tkownicy] > 0,
+        [Measures].[Wypozyczenie Count] / [Measures].[Aktywni U퓓tkownicy],
+        NULL
+    )
+
+SELECT 
+{
+    [Measures].[Wypozyczenie Count],
+    [Measures].[Aktywni U퓓tkownicy],
+    [Measures].[Srednia Liczba Przejazdow na Aktywnego Uzytkownika]
+} ON COLUMNS,
+FILTER(
+    [Data].[Nazwa Miesiaca].MEMBERS,
+    [Data].[Nazwa Miesiaca].CURRENTMEMBER.NAME = "July" OR
+	[Data].[Nazwa Miesiaca].CURRENTMEMBER.NAME = "June"
+) ON ROWS
+
+FROM [Przejazd]
+WHERE(
+	[Data].[Rok].&[2023]
+)

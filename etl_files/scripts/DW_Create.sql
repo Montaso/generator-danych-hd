@@ -44,7 +44,8 @@ CREATE TABLE Pojazd (
     Elektryczny VARCHAR(3) NOT NULL,
     Typ_pojemnosci_akumulatora VARCHAR(20) NOT NULL,
     Czy_nadal_uzywany VARCHAR(3) NOT NULL,
-    Nazwa VARCHAR(20) NOT NULL
+    Nazwa VARCHAR(20) NOT NULL,
+	Data_dezaktywacji DATE
 );
 
 CREATE TABLE Wypozyczenie_Junk (
