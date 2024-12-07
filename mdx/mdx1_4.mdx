@@ -1,0 +1,30 @@
+WITH 
+MEMBER [Measures].[Aktywni Uzytkownicy Wakacje] AS
+    COUNT(
+        FILTER(
+            [Uzytkownik].[ID Uzytkownika].[ID Uzytkownika].Members,
+            NOT IsEmpty(
+                ([Measures].[Wypozyczenie Count], [Data].[Wakacje].&[tak])
+            )
+        )
+    )
+
+MEMBER [Measures].[Aktywni Uzytkownicy Miesiac] AS
+    COUNT(
+        FILTER(
+            [Uzytkownik].[ID Uzytkownika].[ID Uzytkownika].Members,
+            NOT IsEmpty(
+                ([Measures].[Wypozyczenie Count], [Data].[Nazwa Miesiaca].&[December])
+            )
+        )
+    )
+
+SELECT 
+{
+    [Measures].[Aktywni Uzytkownicy Wakacje], 
+    [Measures].[Aktywni Uzytkownicy Miesiac]
+} ON COLUMNS,
+{
+    [Data].[Rok].&[2023]
+} ON ROWS
+FROM [Przejazd]

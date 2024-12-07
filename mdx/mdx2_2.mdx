@@ -1,0 +1,30 @@
+WITH 
+MEMBER [Measures].[Aktywne Stacje1] AS
+    COUNT(
+        FILTER(
+            [ID Stacja Startowa].[ID Stacji].[ID Stacji].MEMBERS,
+            [Measures].[Wypozyczenie Count] > 0
+        )
+    )
+
+MEMBER [Measures].[Aktywne Stacje2] AS
+    COUNT(
+        FILTER(
+            [ID Stacja Koncowa].[ID Stacji].[ID Stacji].MEMBERS,
+            [Measures].[Wypozyczenie Count] > 0
+        )
+    )
+
+MEMBER [Measures].[Aktywne Stacje] AS
+	[Measures].[Aktywne Stacje1] + [Measures].[Aktywne Stacje2]
+
+SELECT 
+{
+    [Measures].[Sredni Czas Wypozyczenia],
+    [Measures].[Aktywne Stacje]
+} ON COLUMNS,
+[Data].[Nazwa Miesiaca].[Nazwa Miesiaca].MEMBERS ON ROWS
+FROM [Przejazd]
+WHERE(
+	[Data].[Rok].&[2019]
+)

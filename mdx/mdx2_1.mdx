@@ -1,0 +1,19 @@
+WITH 
+MEMBER [Measures].[Aktywni Uzytkownicy] AS
+    COUNT(
+        FILTER(
+            [Uzytkownik].[ID Uzytkownika].[ID Uzytkownika].MEMBERS,
+            [Measures].[Wypozyczenie Count] > 0
+        )
+    )
+
+SELECT 
+{
+    [Measures].[Sredni Czas Wypozyczenia],
+    [Measures].[Aktywni Uzytkownicy]
+} ON COLUMNS,
+[Data].[Nazwa Miesiaca].[Nazwa Miesiaca].MEMBERS ON ROWS
+FROM [Przejazd]
+WHERE(
+	[Data].[Rok].&[2023]
+)

@@ -1,0 +1,13 @@
+SELECT 
+{
+    [Measures].[Wypozyczenie Count],
+	[Measures].[Wykonanie Wymiany Akumulatora Count]
+} ON COLUMNS,
+{
+    [Data].[Dzien].[Dzien].Members
+} ON ROWS
+FROM [Przejazd]
+WHERE(
+	[Data].[Nazwa Miesiaca].&[November],
+	[Data].[Rok].&[2019]
+)

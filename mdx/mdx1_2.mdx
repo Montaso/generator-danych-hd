@@ -1,37 +1,33 @@
 WITH 
-MEMBER [Measures].[Aktywne Stacje] AS
+MEMBER [Measures].[Aktywne Stacje1] AS
     COUNT(
         FILTER(
-            [Stacja].[ID Stacji].[ID Stacji].MEMBERS,
-            [Measures].[Wypozyczenie Count] > 0
+            [ID Stacja Startowa].[ID Stacji].[ID Stacji].MEMBERS,
+            NOT IsEmpty([Measures].[Wypozyczenie Count])
         )
     )
 
-MEMBER [Measures].[Srednia Liczba Przejazdow na Aktywnego Uzytkownika] AS
-    IIF(
-        [Measures].[Aktywni U¿ytkownicy] > 0,
-        [Measures].[Wypozyczenie Count] / [Measures].[Aktywni U¿ytkownicy],
-        NULL
+MEMBER [Measures].[Aktywne Stacje2] AS
+    COUNT(
+        FILTER(
+            [ID Stacja Koncowa].[ID Stacji].[ID Stacji].MEMBERS,
+            NOT IsEmpty([Measures].[Wypozyczenie Count])
+        )
     )
+
+MEMBER [Measures].[Suma Aktywnych Stacji] AS
+    [Measures].[Aktywne Stacje1] + [Measures].[Aktywne Stacje2]
 
 SELECT 
 {
-    [Measures].[Wypozyczenie Count],
-    [Measures].[Aktywni U¿ytkownicy],
-    [Measures].[Srednia Liczba Przejazdow na Aktywnego Uzytkownika]
+    [Measures].[Aktywne Stacje1]
 } ON COLUMNS,
 FILTER(
     [Data].[Nazwa Miesiaca].MEMBERS,
     [Data].[Nazwa Miesiaca].CURRENTMEMBER.NAME = "July" OR
 	[Data].[Nazwa Miesiaca].CURRENTMEMBER.NAME = "June"
 ) ON ROWS
-
 FROM [Przejazd]
-WHERE(
+where(
 	[Data].[Rok].&[2023]
 )
-
-SELECT
-[Stacja].[ID Stacji].[ID Stacji].MEMBERS ON ROWS,
-[Measures].[Wypozyczenie Count] ON COLUMNS
-FROM [Przejazd]
