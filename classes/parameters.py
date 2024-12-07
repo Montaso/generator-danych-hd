@@ -21,7 +21,7 @@ class parameters:
 
 
     # Stacje
-    STATION_COLUMN_NAMES = ['Id', 'Longitude', 'Latitude', 'In_Use', 'Capacity']
+    STATION_COLUMN_NAMES = ['Id', 'Longitude', 'Latitude', 'In_Use', 'Capacity', 'Name']
     STATION_LATITUDE_RANGE = (49.0, 54.8)
     STATION_LONGITUDE_RANGE = (14.1, 24.1)
     STATION_CAPACITY_RANGE = (5, 30)

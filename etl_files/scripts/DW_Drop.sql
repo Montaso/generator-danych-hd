@@ -1,4 +1,4 @@
-USE Przejazd
+USE PrzejazdDW
 
 DROP TABLE IF EXISTS Wykonanie_Wymiany_Akumulatora;
 DROP TABLE IF EXISTS Wypozyczenie;

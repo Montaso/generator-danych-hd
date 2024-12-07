@@ -16,6 +16,8 @@ class StationsGenerator:
         self.column_names = parameters.STATION_COLUMN_NAMES
         self.start_index = start_index
 
+    def generate_name(self, capacity, id):
+        return f's{capacity}x{id}'
         
     def _generate_station_data(self):
         stations = []
@@ -26,8 +28,9 @@ class StationsGenerator:
             longitude = round(random.uniform(*self.longitude_range), 6)
             capacity = random.randint(*self.capacity_range)
             in_use = random.choices([1, 0], weights=[90, 10])[0]
+            name = self.generate_name(capacity, id)
 
-            stations.append((id, longitude, latitude, in_use, capacity))
+            stations.append((id, longitude, latitude, in_use, capacity, name))
 
         return stations
 

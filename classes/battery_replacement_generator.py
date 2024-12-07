@@ -33,13 +33,37 @@ class BatteryReplacementGenerator:
     def generate_vehicle_fk(self):
         return random.choice(self.vehicles)
 
+    def load_unique_replacements_from_file(self, file_path):
+        unique_replacements = set()
+
+        if os.path.exists(file_path):
+            with open(file_path, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file, delimiter=';')
+
+
+                next(reader, None)
+
+                for row in reader:
+                    if len(row) >= 3:
+                        _, van_route_fk, vehicle_fk = row
+                        unique_replacements.add((van_route_fk, vehicle_fk))
+
+        return unique_replacements
+
     def generate_battery_replacements_data(self):
         replacements = []
+        unique_replacements = self.load_unique_replacements_from_file(
+            'C:\\Users\\Adrian\\Desktop\\Studia\\sem 5\\HD\\generator-danych-hd\\generated_data\\battery_replacements_data.csv'
+        )
 
         for i in range(self.num_replacements):
             replacement_id = self.generate_replacement_id(i)
             van_route_fk = self.generate_van_route_fk()
             vehicle_fk = self.generate_vehicle_fk()
+            while (van_route_fk, vehicle_fk) in unique_replacements:
+                van_route_fk = self.generate_van_route_fk()
+                vehicle_fk = self.generate_vehicle_fk()
+            unique_replacements.add((van_route_fk, vehicle_fk))
 
             replacements.append((replacement_id, van_route_fk, vehicle_fk))
 

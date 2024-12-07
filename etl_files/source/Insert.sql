@@ -1,77 +1,104 @@
-use Przejazd
+USE Przejazd;
 
 SET DATEFORMAT DMY;
 
+DECLARE @folderPath NVARCHAR(MAX) = 'C:\Users\Adrian\Desktop\Studia\sem 5\HD\generator-danych-hd\generated_data';
+
+DECLARE @sql NVARCHAR(MAX);
+SET @sql = '
 BULK INSERT Uzytkownicy
-FROM '/data/users.csv'
+FROM ''' + @folderPath + '\users.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Pojazdy
-FROM '/data/vehicles_data.csv'
+FROM ''' + @folderPath + '\vehicles_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Vany
-FROM '/data/vans_data.csv'
+FROM ''' + @folderPath + '\vans_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '0x0a'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''0x0a''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Kierowcy
-FROM '/data/drivers.csv'
+FROM ''' + @folderPath + '\drivers.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Stacje
-FROM '/data/stations_data.csv'
+FROM ''' + @folderPath + '\stations_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Wypozyczenia
-FROM '/data/rentals_data.csv'
+FROM ''' + @folderPath + '\rentals_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Trasy_Vanow
-FROM '/data/van_routes_data.csv'
+FROM ''' + @folderPath + '\van_routes_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
+SET @sql = '
 BULK INSERT Wymiany_Akumulatorow
-FROM '/data/battery_replacements_data.csv'
+FROM ''' + @folderPath + '\battery_replacements_data.csv''
 WITH (
-    FORMAT = 'CSV',
+    FORMAT = ''CSV'',
     FIRSTROW = 2,
-    FIELDTERMINATOR = ';',
-    ROWTERMINATOR = '\n'
+    FIELDTERMINATOR = '';'',
+    ROWTERMINATOR = ''\n''
 );
+';
+EXEC sp_executesql @sql;
 
-SELECT * FROM Wymiany_Akumulatorow
+SELECT * FROM Wypozyczenia;
