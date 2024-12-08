@@ -64,7 +64,7 @@ CREATE TABLE Wypozyczenie (
     Koszt DECIMAL(10, 2) NOT NULL,
     Czas_wypozyczenia INT NOT NULL,
     Przejechany_dystans DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (ID_pojazdu, ID_uzytkownika, ID_daty_startu, ID_czasu_startu),
+    PRIMARY KEY (ID_pojazdu, ID_uzytkownika, ID_daty_startu, ID_czasu_startu, ID_stacja_startowa, ID_stacja_koncowa, ID_junk),
     FOREIGN KEY (ID_pojazdu) REFERENCES Pojazd(ID_pojazdu),
     FOREIGN KEY (ID_uzytkownika) REFERENCES Uzytkownik(ID_uzytkownika),
     FOREIGN KEY (ID_stacja_startowa) REFERENCES Stacja(ID_stacji),
@@ -86,3 +86,6 @@ CREATE TABLE Wykonanie_Wymiany_Akumulatora (
     FOREIGN KEY (ID_pojazdu) REFERENCES Pojazd(ID_pojazdu),
     FOREIGN KEY (ID_junk) REFERENCES Junk(ID_junk)
 );
+
+select * from Wykonanie_Wymiany_Akumulatora
+join Data on Wykonanie_Wymiany_Akumulatora.ID_daty_trasy = Data.ID_daty

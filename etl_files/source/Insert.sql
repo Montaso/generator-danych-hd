@@ -101,4 +101,3 @@ WITH (
 ';
 EXEC sp_executesql @sql;
 
-SELECT * FROM Wypozyczenia;
