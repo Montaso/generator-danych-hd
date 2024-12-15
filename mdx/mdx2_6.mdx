@@ -1,20 +1,6 @@
-WITH
-MEMBER [Measures].[Powroty Do Tych Samych Stacji] AS
-    SUM(
-        FILTER(
-            [Wypozyczenie].[ID Wypozyczenia].[ID Wypozyczenia].MEMBERS,
-            [ID Stacja Startowa].[ID Stacji].Properties("id") = 
-            [ID Stacja Koncowa].[ID Stacji].Properties("id")
-        ),
-        1
-    )
-
 SELECT 
-{
-    [Measures].[Powroty Do Tych Samych Stacji]
-} ON COLUMNS,
-[Data].[Nazwa Miesiaca].MEMBERS ON ROWS
+    {[Measures].[Wypozyczenie Count]} ON COLUMNS
 FROM [Przejazd]
 WHERE (
-    [Data].[Rok].&[2023]
+    [Wypozyczenie Junk].[Powrot Do Tej Samej Stacji].&[tak]
 )

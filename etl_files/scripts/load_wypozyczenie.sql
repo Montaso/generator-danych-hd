@@ -30,7 +30,12 @@ FROM
             CASE 
                 WHEN ST.Poprawne_odstawienie = 1 THEN 'tak'
                 WHEN ST.Poprawne_odstawienie = 0 THEN 'nie'
-            END;
+            END
+		AND Junk.Powrot_do_tej_samej_stacji = 
+			CASE
+				WHEN ST.FK_Stacja_startowa = ST.FK_Stacja_koncowa THEN 'tak'
+				WHEN ST.FK_Stacja_startowa != ST.FK_Stacja_koncowa THEN 'nie'
+			END
 GO
 
 MERGE INTO Wypozyczenie AS TT

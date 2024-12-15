@@ -51,6 +51,7 @@ CREATE TABLE Pojazd (
 CREATE TABLE Wypozyczenie_Junk (
     ID_junk INT IDENTITY(1,1) PRIMARY KEY,
     Poprawne_odstawienie VARCHAR(3) NOT NULL,
+	Powrot_do_tej_samej_stacji VARCHAR(3) NOT NULL
 );
 
 CREATE TABLE Wypozyczenie (
@@ -87,5 +88,5 @@ CREATE TABLE Wykonanie_Wymiany_Akumulatora (
     FOREIGN KEY (ID_junk) REFERENCES Junk(ID_junk)
 );
 
-select * from Wykonanie_Wymiany_Akumulatora
-join Data on Wykonanie_Wymiany_Akumulatora.ID_daty_trasy = Data.ID_daty
+select * from Wypozyczenie JOIN Wypozyczenie_Junk on Wypozyczenie.ID_junk = Wypozyczenie_Junk.ID_junk
+where Wypozyczenie_Junk.Powrot_do_tej_samej_stacji = 'tak'
