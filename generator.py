@@ -188,21 +188,21 @@ dimensions = ['drivers', 'users', 'stations_data', 'vans_data', 'vehicles_data']
 if __name__ == "__main__":
     set_parameters('01-01-2016', '01-01-2020', "01-01-2003",
                    '01-01-1998')
-    generate_dimension_data(1, 100, '')
-    generate_fact_data(1, 1000, '', '')
-    generate_missing_fact_data(1, 1000, '', '')
+    generate_dimension_data(1, 5000, '')
+    generate_fact_data(1, 300000, '', '')
+    generate_missing_fact_data(1, 300000, '', '')
 
     set_parameters('01-01-2020', '01-01-2024', '01-01-2007',
                     '01-01-2002')
-    generate_dimension_data(101, 10, '2')
+    generate_dimension_data(5001, 5000, '2')
     for dim in dimensions:
         merge(dim)
 
-    generate_fact_data(1001, 100, '2', '12')
+    generate_fact_data(300001, 300000, '2', '12')
     merge('van_routes_data')
     merge('rentals_data')
 
-    generate_missing_fact_data(1001, 100, '2', '12')
+    generate_missing_fact_data(300001, 300000, '2', '12')
     merge('battery_replacements_data')
 
     generate_SCD()

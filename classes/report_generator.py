@@ -4,7 +4,7 @@ from datetime import timedelta
 
 
 class ReportGenerator:
-    def __init__(self, n, van_route_filename='../generated_data/van_routes_data2.csv'):
+    def __init__(self, n, van_route_filename='../generated_data/van_routes_data12.csv'):
         self.n = n
         self.routes_ids = self.load_csv_ids(van_route_filename, 'route_id')
         self.routes_dates = self.load_csv_ids(van_route_filename, 'date_of_route')
@@ -71,18 +71,18 @@ class ReportGenerator:
         return reports
 
 
-    def write_to_csv(self, reports, filename='../generated_data/reports.csv'):
+    def write_to_csv(self, reports, filename='../generated_data/reports12.csv'):
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerow(['route_id', 'route_length', 'route_time', 'average_fuel_consumption', 'route_date', 'finish_time', 'moved_bikes', 'moved_scooters'])
             writer.writerows(reports)
 
 
-    def generate_and_save(self, filename='../generated_data/reports.csv'):
+    def generate_and_save(self, filename='../generated_data/reports12.csv'):
         routes = self.generate()
         self.write_to_csv(routes, filename)
         print(f"Generated {self.n} reports and wrote to '{filename}'")
 
 
 if __name__ == "__main__":
-    ReportGenerator(n=100).generate_and_save(filename='../generated_data/reports2.csv')
+    ReportGenerator(n=600000).generate_and_save(filename='../generated_data/reports12.csv')

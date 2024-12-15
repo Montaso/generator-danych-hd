@@ -19,8 +19,8 @@ class VansGenerator:
     def generate_license_plate(self):
         while True:
             prefix = random.choice(self.license_plate_prefixes)
-            first_part = ''.join(random.choices(string.digits, k=2))
-            second_part = ''.join(random.choices(string.digits + string.ascii_uppercase, k=3))
+            first_part = ''.join(random.choices(string.digits, k=4))
+            second_part = ''.join(random.choices(string.digits + string.ascii_uppercase, k=6))
             plate_number = f"{prefix}{first_part}{second_part}"
             if plate_number not in self.generated_plates:
                 self.generated_plates.add(plate_number)

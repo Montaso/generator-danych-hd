@@ -6,7 +6,7 @@ CREATE TABLE Uzytkownicy (
     Nazwisko VARCHAR(50) NOT NULL CHECK(LEN(Nazwisko) <= 50),
     Data_Urodzenia DATE NOT NULL CHECK(LEN(Data_Urodzenia) = 10),
     Data_Rejestracji DATE NOT NULL CHECK(LEN(Data_Rejestracji) = 10),
-	PESEL VARCHAR(11) UNIQUE CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11)
+	PESEL VARCHAR(12) UNIQUE CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11)
 );
 
 CREATE TABLE Stacje (
@@ -49,14 +49,14 @@ CREATE TABLE Wypozyczenia (
 );
 
 CREATE TABLE Vany (
-    Numer_rejestracji VARCHAR(7) PRIMARY KEY,
+    Numer_rejestracji VARCHAR(12) PRIMARY KEY,
     Czy_nadal_uzywany BIT NOT NULL,
     Pojemnosc INT CHECK (Pojemnosc >= 5000000 AND Pojemnosc <= 20000000) NOT NULL  -- Van capacity in cm^3
 );
 
 CREATE TABLE Kierowcy (
     ID_kierowcy INT PRIMARY KEY,
-    PESEL VARCHAR(11) CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
+    PESEL VARCHAR(12) CHECK (ISNUMERIC(PESEL) = 1 AND LEN(PESEL) = 11),
     Imie VARCHAR(20) NOT NULL,
     Nazwisko VARCHAR(20) NOT NULL,
     Czy_nadal_pracuje BIT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE Kierowcy (
 CREATE TABLE Trasy_Vanow (
     ID_trasy INT PRIMARY KEY,
     FK_ID_kierowcy INT NOT NULL,
-    FK_Numer_rejestracji_vana VARCHAR(7) NOT NULL,
+    FK_Numer_rejestracji_vana VARCHAR(12) NOT NULL,
     Data_trasy DATE CHECK (Data_trasy <= GETDATE()),
     FOREIGN KEY (FK_ID_kierowcy) REFERENCES Kierowcy(ID_kierowcy),
     FOREIGN KEY (FK_Numer_rejestracji_vana) REFERENCES Vany(Numer_rejestracji)

@@ -12,7 +12,7 @@ go
 
 MERGE INTO Uzytkownik as TT
 	USING vETLDimUzytkownicy as ST
-		ON TT.Imie_i_nazwisko = ST.Imie_i_nazwisko
+		ON TT.Pesel = ST.Pesel
 			WHEN NOT MATCHED THEN
 				INSERT (Imie_i_nazwisko, PESEL)
 				VALUES (ST.Imie_i_nazwisko, ST.PESEL)

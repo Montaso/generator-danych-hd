@@ -37,15 +37,15 @@ class DriverGenerator:
         random_date = self.date_generator.generate(n=1, start_date=self.pesel_date_start, end_date=self.pesel_date_end)
         date_part = datetime.strptime(random_date, self.date_format).strftime('%y%m%d')
 
-        sequence_number = f"{random.randint(0, 9999):04d}"
+        sequence_number = f"{random.randint(0, 999999):06d}"
 
         pesel_without_checksum = date_part + sequence_number
 
-        weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
-        checksum = sum(int(pesel_without_checksum[i]) * weights[i] for i in range(10)) % 10
-        checksum = (10 - checksum) % 10
+        # weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
+        # checksum = sum(int(pesel_without_checksum[i]) * weights[i] for i in range(10)) % 10
+        # checksum = (10 - checksum) % 10
 
-        pesel = pesel_without_checksum + str(checksum)
+        pesel = pesel_without_checksum # + str(checksum)
 
         return pesel
 

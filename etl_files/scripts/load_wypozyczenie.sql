@@ -75,4 +75,4 @@ GO
 DROP VIEW vETLDimWypozyczenia;
 GO
 
-SELECT * FROM PrzejazdDW.dbo.Wypozyczenie;
+SELECT * FROM PrzejazdDW.dbo.Wykonanie_Wymiany_Akumulatora;

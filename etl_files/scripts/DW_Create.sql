@@ -4,7 +4,7 @@ USE PrzejazdDW
 CREATE TABLE Uzytkownik (
     ID_uzytkownika INT IDENTITY(1,1) PRIMARY KEY,
     Imie_i_nazwisko VARCHAR(40) NOT NULL,
-    PESEL CHAR(11) NOT NULL
+    PESEL CHAR(12) NOT NULL
 );
 
 CREATE TABLE Stacja (
@@ -87,6 +87,3 @@ CREATE TABLE Wykonanie_Wymiany_Akumulatora (
     FOREIGN KEY (ID_pojazdu) REFERENCES Pojazd(ID_pojazdu),
     FOREIGN KEY (ID_junk) REFERENCES Junk(ID_junk)
 );
-
-select * from Wypozyczenie JOIN Wypozyczenie_Junk on Wypozyczenie.ID_junk = Wypozyczenie_Junk.ID_junk
-where Wypozyczenie_Junk.Powrot_do_tej_samej_stacji = 'tak'

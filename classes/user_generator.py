@@ -33,15 +33,15 @@ class UserGenerator:
         random_date = self.date_generator.generate(n=1, start_date=self.birthdate_start, end_date=self.birthdate_end)
         date_part = datetime.strptime(random_date, self.date_format).strftime('%y%m%d')
 
-        sequence_number = f"{random.randint(0, 9999):04d}"
+        sequence_number = f"{random.randint(0, 99999):05d}"
 
         pesel_without_checksum = date_part + sequence_number
 
-        weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
-        checksum = sum(int(pesel_without_checksum[i]) * weights[i] for i in range(10)) % 10
-        checksum = (10 - checksum) % 10
+        # weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
+        # checksum = sum(int(pesel_without_checksum[i]) * weights[i] for i in range(10)) % 10
+        # checksum = (10 - checksum) % 10
 
-        pesel = pesel_without_checksum + str(checksum)
+        pesel = str(random.randint(1, 9)) + pesel_without_checksum # + str(checksum)
 
         return pesel
 
